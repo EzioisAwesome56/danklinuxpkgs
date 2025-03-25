@@ -1,0 +1,62 @@
+diff -ruN gimp-2.4.7/configure gimp-2.4.7-nopc/configure
+--- gimp-2.4.7/configure	2008-08-21 05:36:52.000000000 -0400
++++ gimp-2.4.7-nopc/configure	2025-03-25 15:57:28.923184742 -0400
+@@ -36603,7 +36603,7 @@
+ ac_config_commands="$ac_config_commands libgimpbase/gimpversion.h"
+ 
+ 
+-ac_config_files="$ac_config_files gimptool-win32.c tools/Makefile tools/pdbgen/Makefile regexrepl/Makefile libgimp/Makefile libgimpbase/Makefile libgimpconfig/Makefile libgimpcolor/Makefile libgimpmath/Makefile libgimpmodule/Makefile libgimpthumb/Makefile libgimpwidgets/Makefile app/Makefile app/actions/Makefile app/base/Makefile app/config/Makefile app/core/Makefile app/dialogs/Makefile app/display/Makefile app/file/Makefile app/gui/Makefile app/menus/Makefile app/paint/Makefile app/paint-funcs/Makefile app/composite/Makefile app/pdb/Makefile app/plug-in/Makefile app/text/Makefile app/tools/Makefile app/vectors/Makefile app/widgets/Makefile app/xcf/Makefile plug-ins/Makefile plug-ins/script-fu/Makefile plug-ins/script-fu/ftx/Makefile plug-ins/script-fu/re/Makefile plug-ins/script-fu/tinyscheme/Makefile plug-ins/script-fu/scripts/Makefile plug-ins/script-fu/scripts/images/Makefile plug-ins/xjt/Makefile plug-ins/FractalExplorer/Makefile plug-ins/FractalExplorer/examples/Makefile plug-ins/Lighting/Makefile plug-ins/Lighting/images/Makefile plug-ins/MapObject/Makefile plug-ins/bmp/Makefile plug-ins/common/Makefile plug-ins/faxg3/Makefile plug-ins/fits/Makefile plug-ins/flame/Makefile plug-ins/gfig/Makefile plug-ins/gfig/gfig-examples/Makefile plug-ins/gfig/images/Makefile plug-ins/gflare/Makefile plug-ins/gflare/gflares/Makefile plug-ins/gfli/Makefile plug-ins/gimpressionist/Makefile plug-ins/gimpressionist/Brushes/Makefile plug-ins/gimpressionist/Paper/Makefile plug-ins/gimpressionist/Presets/Makefile plug-ins/help/Makefile plug-ins/helpbrowser/Makefile plug-ins/ifscompose/Makefile plug-ins/imagemap/Makefile plug-ins/imagemap/images/Makefile plug-ins/jpeg/Makefile plug-ins/maze/Makefile plug-ins/metadata/Makefile plug-ins/pagecurl/Makefile plug-ins/print/Makefile plug-ins/pygimp/Makefile plug-ins/pygimp/plug-ins/Makefile plug-ins/rcm/Makefile plug-ins/rcm/images/Makefile plug-ins/sel2path/Makefile plug-ins/sgi/Makefile plug-ins/twain/Makefile plug-ins/uri/Makefile plug-ins/winicon/Makefile plug-ins/winsnap/Makefile modules/Makefile devel-docs/Makefile devel-docs/app/Makefile devel-docs/app/version devel-docs/libgimp/Makefile devel-docs/libgimp/version devel-docs/libgimpbase/Makefile devel-docs/libgimpbase/version devel-docs/libgimpconfig/Makefile devel-docs/libgimpconfig/version devel-docs/libgimpcolor/Makefile devel-docs/libgimpcolor/version devel-docs/libgimpmath/Makefile devel-docs/libgimpmath/version devel-docs/libgimpmodule/Makefile devel-docs/libgimpmodule/version devel-docs/libgimpthumb/Makefile devel-docs/libgimpthumb/version devel-docs/libgimpwidgets/Makefile devel-docs/libgimpwidgets/version devel-docs/tools/Makefile docs/Makefile menus/Makefile cursors/Makefile themes/Makefile themes/Default/Makefile themes/Default/images/Makefile themes/Default/images/preferences/Makefile themes/Small/Makefile data/Makefile data/brushes/Makefile data/environ/Makefile data/gradients/Makefile data/images/Makefile data/interpreters/Makefile data/palettes/Makefile data/patterns/Makefile data/tips/Makefile desktop/Makefile desktop/gimp.applications desktop/gimp.desktop.in desktop/gimp.keys etc/Makefile m4macros/Makefile po/Makefile.in po-libgimp/Makefile.in po-plug-ins/Makefile.in po-python/Makefile.in po-script-fu/Makefile.in po-tips/Makefile.in gimp-zip Makefile"
++ac_config_files="$ac_config_files gimptool-win32.c tools/Makefile tools/pdbgen/Makefile regexrepl/Makefile libgimp/Makefile libgimpbase/Makefile libgimpconfig/Makefile libgimpcolor/Makefile libgimpmath/Makefile libgimpmodule/Makefile libgimpthumb/Makefile libgimpwidgets/Makefile app/Makefile app/actions/Makefile app/base/Makefile app/config/Makefile app/core/Makefile app/dialogs/Makefile app/display/Makefile app/file/Makefile app/gui/Makefile app/menus/Makefile app/paint/Makefile app/paint-funcs/Makefile app/composite/Makefile app/pdb/Makefile app/plug-in/Makefile app/text/Makefile app/tools/Makefile app/vectors/Makefile app/widgets/Makefile app/xcf/Makefile plug-ins/Makefile plug-ins/script-fu/Makefile plug-ins/script-fu/ftx/Makefile plug-ins/script-fu/re/Makefile plug-ins/script-fu/tinyscheme/Makefile plug-ins/script-fu/scripts/Makefile plug-ins/script-fu/scripts/images/Makefile plug-ins/xjt/Makefile plug-ins/FractalExplorer/Makefile plug-ins/FractalExplorer/examples/Makefile plug-ins/Lighting/Makefile plug-ins/Lighting/images/Makefile plug-ins/MapObject/Makefile plug-ins/bmp/Makefile plug-ins/common/Makefile plug-ins/faxg3/Makefile plug-ins/fits/Makefile plug-ins/flame/Makefile plug-ins/gfig/Makefile plug-ins/gfig/gfig-examples/Makefile plug-ins/gfig/images/Makefile plug-ins/gflare/Makefile plug-ins/gflare/gflares/Makefile plug-ins/gfli/Makefile plug-ins/gimpressionist/Makefile plug-ins/gimpressionist/Brushes/Makefile plug-ins/gimpressionist/Paper/Makefile plug-ins/gimpressionist/Presets/Makefile plug-ins/help/Makefile plug-ins/helpbrowser/Makefile plug-ins/ifscompose/Makefile plug-ins/imagemap/Makefile plug-ins/imagemap/images/Makefile plug-ins/jpeg/Makefile plug-ins/maze/Makefile plug-ins/metadata/Makefile plug-ins/print/Makefile plug-ins/pygimp/Makefile plug-ins/pygimp/plug-ins/Makefile plug-ins/rcm/Makefile plug-ins/rcm/images/Makefile plug-ins/sel2path/Makefile plug-ins/sgi/Makefile plug-ins/twain/Makefile plug-ins/uri/Makefile plug-ins/winicon/Makefile plug-ins/winsnap/Makefile modules/Makefile devel-docs/Makefile devel-docs/app/Makefile devel-docs/app/version devel-docs/libgimp/Makefile devel-docs/libgimp/version devel-docs/libgimpbase/Makefile devel-docs/libgimpbase/version devel-docs/libgimpconfig/Makefile devel-docs/libgimpconfig/version devel-docs/libgimpcolor/Makefile devel-docs/libgimpcolor/version devel-docs/libgimpmath/Makefile devel-docs/libgimpmath/version devel-docs/libgimpmodule/Makefile devel-docs/libgimpmodule/version devel-docs/libgimpthumb/Makefile devel-docs/libgimpthumb/version devel-docs/libgimpwidgets/Makefile devel-docs/libgimpwidgets/version devel-docs/tools/Makefile docs/Makefile menus/Makefile cursors/Makefile themes/Makefile themes/Default/Makefile themes/Default/images/Makefile themes/Default/images/preferences/Makefile themes/Small/Makefile data/Makefile data/brushes/Makefile data/environ/Makefile data/gradients/Makefile data/images/Makefile data/interpreters/Makefile data/palettes/Makefile data/patterns/Makefile data/tips/Makefile desktop/Makefile desktop/gimp.applications desktop/gimp.desktop.in desktop/gimp.keys etc/Makefile m4macros/Makefile po/Makefile.in po-libgimp/Makefile.in po-plug-ins/Makefile.in po-python/Makefile.in po-script-fu/Makefile.in po-tips/Makefile.in gimp-zip Makefile"
+ 
+ 
+ ac_config_files="$ac_config_files docs/gimp-2.4.1:docs/gimp.1.in docs/gimprc-2.4.5:docs/gimprc.5.in docs/gimptool-2.0.1:docs/gimptool.1.in docs/gimp-remote-2.4.1:docs/gimp-remote.1.in gimptool-2.0:gimptool-2.0.in gimp-2.0.pc:gimp.pc.in gimpthumb-2.0.pc:gimpthumb.pc.in gimpui-2.0.pc:gimpui.pc.in"
+@@ -37532,7 +37532,6 @@
+     "plug-ins/jpeg/Makefile") CONFIG_FILES="$CONFIG_FILES plug-ins/jpeg/Makefile" ;;
+     "plug-ins/maze/Makefile") CONFIG_FILES="$CONFIG_FILES plug-ins/maze/Makefile" ;;
+     "plug-ins/metadata/Makefile") CONFIG_FILES="$CONFIG_FILES plug-ins/metadata/Makefile" ;;
+-    "plug-ins/pagecurl/Makefile") CONFIG_FILES="$CONFIG_FILES plug-ins/pagecurl/Makefile" ;;
+     "plug-ins/print/Makefile") CONFIG_FILES="$CONFIG_FILES plug-ins/print/Makefile" ;;
+     "plug-ins/pygimp/Makefile") CONFIG_FILES="$CONFIG_FILES plug-ins/pygimp/Makefile" ;;
+     "plug-ins/pygimp/plug-ins/Makefile") CONFIG_FILES="$CONFIG_FILES plug-ins/pygimp/plug-ins/Makefile" ;;
+diff -ruN gimp-2.4.7/configure.in gimp-2.4.7-nopc/configure.in
+--- gimp-2.4.7/configure.in	2008-08-21 05:26:58.000000000 -0400
++++ gimp-2.4.7-nopc/configure.in	2025-03-25 15:52:50.630180336 -0400
+@@ -1944,7 +1944,6 @@
+ plug-ins/jpeg/Makefile
+ plug-ins/maze/Makefile
+ plug-ins/metadata/Makefile
+-plug-ins/pagecurl/Makefile
+ plug-ins/print/Makefile
+ plug-ins/pygimp/Makefile
+ plug-ins/pygimp/plug-ins/Makefile
+diff -ruN gimp-2.4.7/plug-ins/Makefile.am gimp-2.4.7-nopc/plug-ins/Makefile.am
+--- gimp-2.4.7/plug-ins/Makefile.am	2008-07-10 06:31:58.000000000 -0400
++++ gimp-2.4.7-nopc/plug-ins/Makefile.am	2025-03-25 15:51:26.961179011 -0400
+@@ -63,7 +63,6 @@
+ 	jpeg                    \
+ 	maze			\
+ 	metadata		\
+-	pagecurl		\
+ 	$(print)		\
+ 	$(pygimp)		\
+ 	rcm			\
+diff -ruN gimp-2.4.7/plug-ins/Makefile.in gimp-2.4.7-nopc/plug-ins/Makefile.in
+--- gimp-2.4.7/plug-ins/Makefile.in	2008-08-21 05:36:47.000000000 -0400
++++ gimp-2.4.7-nopc/plug-ins/Makefile.in	2025-03-25 16:04:17.729191214 -0400
+@@ -61,7 +61,7 @@
+ CTAGS = ctags
+ DIST_SUBDIRS = script-fu FractalExplorer Lighting MapObject bmp faxg3 \
+ 	fits flame gfig gflare gfli gimpressionist help helpbrowser \
+-	ifscompose imagemap jpeg maze metadata pagecurl print pygimp \
++	ifscompose imagemap jpeg maze metadata print pygimp \
+ 	rcm sgi sel2path twain uri winicon winsnap xjt common
+ DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
+ AA = @AA@
+@@ -410,7 +410,6 @@
+ 	jpeg                    \
+ 	maze			\
+ 	metadata		\
+-	pagecurl		\
+ 	$(print)		\
+ 	$(pygimp)		\
+ 	rcm			\
