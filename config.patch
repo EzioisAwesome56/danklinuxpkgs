@@ -1,0 +1,44 @@
+--- ./buildroot-2024.02.11/package/Config.in	2025-03-24 19:56:35.000000000 -0400
++++ ./stockroot/package/Config.in	2025-02-21 08:06:27.000000000 -0500
+@@ -2837,41 +2837,4 @@
+ 	source "package/vim/Config.in"
+ endmenu
+ 
+-menu "Dank Linux Extra Packages"
+-	source "package/libxmp/Config.in"
+-	source "package/xmpcli/Config.in"
+-	source "package/devicegcc/Config.in"
+-	source "package/icewm/Config.in"
+-	source "package/vte_leg/Config.in"
+-	source "package/foxtoolkit/Config.in"
+-	source "package/goffice/Config.in"
+-	source "package/libgsf/Config.in"
+-	source "package/wv/Config.in"
+-	source "package/libcrocoreinst/Config.in"
+-	source "package/librsvg_old/Config.in"
+-	source "package/gimp/Config.in"
+-	source "package/lxterm/Config.in"
+-	source "package/lxde-common/Config.in"
+-	source "package/lxsession/Config.in"
+-	source "package/libwnck/Config.in"
+-	source "package/keybinder2/Config.in"
+-	source "package/lxpanel/Config.in"
+-	source "package/sakura/Config.in"
+-	source "package/file_roller/Config.in"
+-	source "package/mate_desktop/Config.in"
+-	source "package/mateeye/Config.in"
+-	source "package/atril/Config.in"
+-	source "package/dosemu2/Config.in"
+-	menu "Broken Packages"
+-		source "package/xfe/Config.in"
+-		source "package/libptytty/Config.in"
+-		source "package/gnumeric/Config.in"
+-		source "package/dosemu/Config.in"
+-		source "package/abiword/Config.in"
+-	endmenu
+-	menu "Untested/depends on broken packages"
+-		source "package/rxvt/Config.in"
+-	endmenu
+-endmenu
+-
+ endmenu

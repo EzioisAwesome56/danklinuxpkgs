@@ -1,0 +1,20 @@
+--- ./buildroot-2024.02.11/Makefile	2025-03-15 12:53:04.000000000 -0400
++++ ./stockroot/Makefile	2025-02-21 08:06:27.000000000 -0500
+@@ -725,15 +725,13 @@
+ 	@$(call MESSAGE,"Finalizing target directory")
+ 	$(call per-package-rsync,$(sort $(PACKAGES)),target,$(TARGET_DIR),copy)
+ 	$(foreach hook,$(TARGET_FINALIZE_HOOKS),$($(hook))$(sep))
+-	# rm -rf $(TARGET_DIR)/usr/include $(TARGET_DIR)/usr/share/aclocal \
+-	rm -rf $(TARGET_DIR)/usr/share/aclocal \
++	rm -rf $(TARGET_DIR)/usr/include $(TARGET_DIR)/usr/share/aclocal \
+ 		$(TARGET_DIR)/usr/lib/pkgconfig $(TARGET_DIR)/usr/share/pkgconfig \
+ 		$(TARGET_DIR)/usr/lib/cmake $(TARGET_DIR)/usr/share/cmake \
+ 		$(TARGET_DIR)/usr/lib/rpm $(TARGET_DIR)/usr/doc
+ 	find $(TARGET_DIR)/usr/{lib,share}/ -name '*.cmake' -print0 | xargs -0 rm -f
+ 	find $(TARGET_DIR)/lib/ $(TARGET_DIR)/usr/lib/ $(TARGET_DIR)/usr/libexec/ \
+-		\( -name '*.la' -o -name '*.prl' \) -print0 | xargs -0 rm -f
+-	#	\( -name '*.a' -o -name '*.la' -o -name '*.prl' \) -print0 | xargs -0 rm -f
++		\( -name '*.a' -o -name '*.la' -o -name '*.prl' \) -print0 | xargs -0 rm -f
+ ifneq ($(BR2_PACKAGE_GDB),y)
+ 	rm -rf $(TARGET_DIR)/usr/share/gdb
+ endif
