@@ -1,0 +1,180 @@
+diff -ruN gnumeric-1.10.17/Makefile.am gnumeric-1.10.17-mod/Makefile.am
+--- gnumeric-1.10.17/Makefile.am	2011-05-02 19:27:14.000000000 -0400
++++ gnumeric-1.10.17-mod/Makefile.am	2025-03-16 19:29:06.891581436 -0400
+@@ -1,4 +1,4 @@
+-SUBDIRS = . po po-functions src plugins icons @COMPONENT_DIR@ templates doc tools schemas test
++SUBDIRS = . po po-functions src plugins icons @COMPONENT_DIR@ templates doc tools schemas
+ 
+ XML_I18N_XML_KIND = --pass-through
+ 
+@@ -24,8 +24,7 @@
+ 	intltool-merge.in	\
+ 	intltool-update.in	\
+ 	xmldocs.make 		\
+-	libspreadsheet.pc.in	\
+-	omf.make
++	libspreadsheet.pc.in
+ 
+ pkgconfigdir = $(libdir)/pkgconfig
+ pkgconfig_DATA = libspreadsheet-@GNUMERIC_API_VER@.pc
+diff -ruN gnumeric-1.10.17/Makefile.in gnumeric-1.10.17-mod/Makefile.in
+--- gnumeric-1.10.17/Makefile.in	2011-07-07 07:40:13.000000000 -0400
++++ gnumeric-1.10.17-mod/Makefile.in	2025-03-16 20:34:56.986251071 -0400
+@@ -345,7 +345,7 @@
+ top_build_prefix = @top_build_prefix@
+ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+-SUBDIRS = . po po-functions src plugins icons @COMPONENT_DIR@ templates doc tools schemas test
++SUBDIRS = . po po-functions src plugins icons @COMPONENT_DIR@ templates doc tools schemas
+ XML_I18N_XML_KIND = --pass-through
+ change_logs = ChangeLog \
+ 	OChangeLog-1999-07-09 \
+@@ -959,7 +959,7 @@
+ 	rm -f $@.tmp $@.tmp2
+ install-exec-local: gnumeric-features.h
+ 	$(mkinstalldirs) $(DESTDIR)$(configexecincludedir)
+-	file=$(DESTDIR)$(configexecincludedir)/$< ; \
++	file=$(DESTDIR)/$< ; \
+ 	if test -r $$file && cmp -s $< $$file; then :; \
+ 	else $(INSTALL_DATA) $< $$file; fi
+ 
+diff -ruN gnumeric-1.10.17/configure.in gnumeric-1.10.17-mod/configure.in
+--- gnumeric-1.10.17/configure.in	2011-06-16 19:47:38.000000000 -0400
++++ gnumeric-1.10.17-mod/configure.in	2025-03-16 19:18:00.225637193 -0400
+@@ -1187,7 +1187,6 @@
+ templates/Makefile
+ templates/english/Makefile
+ templates/autoformat/Makefile
+-test/Makefile
+ tools/Makefile
+ tools/win32/Makefile
+ tools/win32/moduleset
+diff -ruN gnumeric-1.10.17/doc/C/Makefile.in gnumeric-1.10.17-mod/doc/C/Makefile.in
+--- gnumeric-1.10.17/doc/C/Makefile.in	2011-07-07 07:40:02.000000000 -0400
++++ gnumeric-1.10.17-mod/doc/C/Makefile.in	2025-03-16 20:11:18.310369722 -0400
+@@ -887,12 +887,12 @@
+ 	done; \
+ 	touch omf_timestamp
+ 
+-install-data-hook-omf:
+-	$(mkinstalldirs) $(DESTDIR)$(omf_dest_dir)
+-	for file in $(omffile); do \
+-		$(INSTALL_DATA) $$file.out $(DESTDIR)$(omf_dest_dir)/$$file; \
+-	done
+-	-scrollkeeper-update -p $(DESTDIR)$(scrollkeeper_localstate_dir) -o $(DESTDIR)$(omf_dest_dir)
++#install-data-hook-omf:
++#	$(mkinstalldirs) $(DESTDIR)$(omf_dest_dir)
++#	for file in $(omffile); do \
++#		$(INSTALL_DATA) $$file.out $(DESTDIR)$(omf_dest_dir)/$$file; \
++#	done
++#	-scrollkeeper-update -p $(DESTDIR)$(scrollkeeper_localstate_dir) -o $(DESTDIR)$(omf_dest_dir)
+ 
+ uninstall-local-omf:
+ 	-for file in $(srcdir)/*.omf; do \
+@@ -936,7 +936,8 @@
+ 	  done \
+ 	fi
+ 
+-install-data-hook: install-data-hook-omf
++#install-data-hook: install-data-hook-omf
++install-data-hook: $(NOOP)
+ 
+ uninstall-local: uninstall-local-doc uninstall-local-omf
+ 
+diff -ruN gnumeric-1.10.17/doc/C/gnumeric-C.omf.out gnumeric-1.10.17-mod/doc/C/gnumeric-C.omf.out
+--- gnumeric-1.10.17/doc/C/gnumeric-C.omf.out	1969-12-31 19:00:00.000000000 -0500
++++ gnumeric-1.10.17-mod/doc/C/gnumeric-C.omf.out	2025-03-16 18:07:50.109989305 -0400
+@@ -0,0 +1,3 @@
++from: https://www.halpanet.org/pub/slackware/sbo/local/15.0/office/gnumeric-gtk2/gnumeric-gtk2.SlackBuild
++
++this file has to exist or else it will cause more build failures. very funny fix
+diff -ruN gnumeric-1.10.17/doc/Makefile.am gnumeric-1.10.17-mod/doc/Makefile.am
+--- gnumeric-1.10.17/doc/Makefile.am	2009-05-18 22:04:09.000000000 -0400
++++ gnumeric-1.10.17-mod/doc/Makefile.am	2025-03-16 18:17:01.498943190 -0400
+@@ -6,7 +6,7 @@
+ #    it ja ko lv mr_IN ms nl nn no pl pt pt_BR \
+ #    ro ru sk sv tr uk vi zh_CN zh_TW
+ #
+-EXTRA_DIST = 				\
+-	README				\
+-	gnumeric-doc.make		\
+-	make-func-list.pl
++#EXTRA_DIST = 				\
++#	README				\
++#	gnumeric-doc.make		\
++#	make-func-list.pl
+diff -ruN gnumeric-1.10.17/src/dead-kittens.h gnumeric-1.10.17-mod/src/dead-kittens.h
+--- gnumeric-1.10.17/src/dead-kittens.h	2011-05-02 19:27:17.000000000 -0400
++++ gnumeric-1.10.17-mod/src/dead-kittens.h	2025-03-16 17:38:54.694134446 -0400
+@@ -1522,15 +1522,15 @@
+   gnm_object_get_bool ((_cr_), "editable")
+ #endif
+ 
+-#ifdef HAVE_GTK_OBJECT_DESTROY
++//#ifdef HAVE_GTK_OBJECT_DESTROY
+ #define gnm_destroy_class(_class_) ((GtkObjectClass *)(_class_))
+ #define gnm_destroy_class_chain(_class_,_obj_) gnm_destroy_class(_class_)->destroy((GtkObject*)(_obj_))
+ #define gnm_destroy_class_set(_class_,_func_) gnm_destroy_class(_class_)->destroy = ((void (*)(GtkObject*))(_func_))
+-#else
+-#define gnm_destroy_class(_class_) ((GtkWidgetClass *)(_class_))
+-#define gnm_destroy_class_chain(_class_,_obj_) gnm_destroy_class(_class_)->destroy((GtkWidget*)(_obj_))
+-#define gnm_destroy_class_set(_class_,_func_) gnm_destroy_class(_class_)->destroy = (_func_)
+-#endif
++//#else
++//#define gnm_destroy_class(_class_) ((GtkWidgetClass *)(_class_))
++//#define gnm_destroy_class_chain(_class_,_obj_) gnm_destroy_class(_class_)->destroy((GtkWidget*)(_obj_))
++//#define gnm_destroy_class_set(_class_,_func_) gnm_destroy_class(_class_)->destroy = (_func_)
++//#endif
+ 
+ #ifndef HAVE_GTK_DIALOG_GET_ACTION_AREA
+ #define gtk_dialog_get_action_area(x) ((x)->action_area)
+@@ -1545,11 +1545,11 @@
+ #endif
+ 
+ #ifndef HAVE_GTK_ENTRY_GET_TEXT_AREA
+-#  ifdef HAVE_GTK_ENTRY_TEXT_AREA
++//#  ifdef HAVE_GTK_ENTRY_TEXT_AREA
+ #    define gtk_entry_get_text_area(x) ((x)->text_area)
+-#  else
+-#    define gtk_entry_get_text_area(x) ((x)->_g_sealed__text_area)
+-#  endif
++//#  else
++//#    define gtk_entry_get_text_area(x) ((x)->_g_sealed__text_area)
++//#  endif
+ #endif
+ 
+ #ifndef HAVE_GTK_ENTRY_GET_OVERWRITE_MODE
+@@ -1639,11 +1639,11 @@
+ #endif
+ 
+ #ifndef HAVE_GTK_WIDGET_GET_REALIZED
+-#  ifdef HAVE_WORKING_GTK_WIDGET_REALIZED
++//#  ifdef HAVE_WORKING_GTK_WIDGET_REALIZED
+ #    define gtk_widget_get_realized(w) GTK_WIDGET_REALIZED ((w))
+-#  else
+-#    define gtk_widget_get_realized(wid) (((GTK_OBJECT (wid)->_g_sealed__flags) & GTK_REALIZED) != 0)
+-#  endif
++//#  else
++//#    define gtk_widget_get_realized(wid) (((GTK_OBJECT (wid)->_g_sealed__flags) & GTK_REALIZED) != 0)
++//#  endif
+ #endif
+ 
+ #ifndef HAVE_GTK_ADJUSTMENT_CONFIGURE
+@@ -1720,12 +1720,13 @@
+ #endif
+ 
+ /* This function does not exist in gtk+ yet.  634100.  */
++// why is this broken? i have no idea
+ #ifndef HAVE_GTK_TREE_VIEW_COLUMN_GET_BUTTON
+-#  ifdef HAVE_GTK_TREE_VIEW_COLUMN_BUTTON
++//#  ifdef HAVE_GTK_TREE_VIEW_COLUMN_BUTTON
+ #    define gtk_tree_view_column_get_button(_c) ((_c)->button)
+-#  else
+-#    define gtk_tree_view_column_get_button(_c) ((_c)->_g_sealed__button)
+-#  endif
++//#  else
++//#    define gtk_tree_view_column_get_button(_c) ((_c)->_g_sealed__button)
++//#  endif
+ #endif
+ 
+ #ifndef HAVE_GTK_WINDOW_GET_DEFAULT_WIDGET

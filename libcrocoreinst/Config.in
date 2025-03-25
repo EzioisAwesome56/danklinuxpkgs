@@ -1,0 +1,7 @@
+config BR2_PACKAGE_LIBCROCOREINST
+	bool "libcrocoreinst"
+	help
+		libcroco 0.6, readded to buildroot
+		it was removed previously for unknown reasons
+		
+		https://download.gnome.org/sources/libcroco/0.6/

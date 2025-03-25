@@ -1,0 +1,21 @@
+config BR2_PACKAGE_ICEWM
+	bool "icewm"
+	depends on BR2_PACKAGE_IMLIB2
+	depends on BR2_PACKAGE_XLIB_LIBXCOMPOSITE
+	depends on BR2_PACKAGE_XLIB_LIBXDAMAGE
+	depends on BR2_PACKAGE_XLIB_LIBXFIXES
+	depends on BR2_PACKAGE_XLIB_LIBXFT
+	depends on BR2_PACKAGE_XLIB_LIBXINERAMA
+	depends on BR2_PACKAGE_XLIB_LIBXPM
+	depends on BR2_PACKAGE_XLIB_LIBXRANDR
+	depends on BR2_PACKAGE_XLIB_LIBXRENDER
+	help
+		icewm is a lightweight window manager that also provides
+		stuff like a task bar.
+		
+		should be plenty fast on dinosaur computers
+		https://github.com/ice-wm/icewm
+
+comment "icewm depends on imlib2 and libxcomposite"
+	depends on !BR2_PACKAGE_XLIB_LIBXCOMPOSITE
+	depends on !BR2_PACKAGE_IMLIB2

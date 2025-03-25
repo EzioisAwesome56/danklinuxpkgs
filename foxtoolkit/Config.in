@@ -1,0 +1,7 @@
+config BR2_PACKAGE_FOXTOOLKIT
+	bool "foxtoolkit"
+	help
+		fox toolkit is a ui framework that exists. I bet you didn't 
+		know it existed!
+		
+		http://www.fox-toolkit.org/

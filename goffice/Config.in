@@ -1,0 +1,7 @@
+config BR2_PACKAGE_GOFFICE
+	bool "goffice"
+	select BR2_PACKAGE_LIBGTK2
+	select BR2_PACKAGE_PCRE
+	depends on BR2_PACKAGE_LIBGSF
+	help
+		dependacy for gnumeric

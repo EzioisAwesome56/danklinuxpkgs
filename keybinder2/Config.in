@@ -1,0 +1,9 @@
+config BR2_PACKAGE_KEYBINDER2
+	bool "keybinder2"
+	select BR2_PACKAGE_LIBGTK2
+	help
+		honestly i have no idea what the hell this is,
+		but lxpanel needs it so
+		
+		based on how arch linux packages it
+		https://archlinux.org/packages/extra/x86_64/libkeybinder2/

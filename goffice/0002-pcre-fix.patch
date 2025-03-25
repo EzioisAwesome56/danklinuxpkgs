@@ -1,0 +1,11 @@
+--- goffice-0.8.17.orig/goffice/utils/regutf8.c
++++ goffice-0.8.17/goffice/utils/regutf8.c
+@@ -155,7 +155,7 @@ go_regcomp (GORegexp *gor, const char *p
+ 		default: return GO_REG_BADPAT;
+ 		}
+ 	} else {
+-		gor->re_nsub = pcre_info (r, NULL, NULL);
++		gor->re_nsub = pcre_fullinfo (r, NULL, 0, NULL);
+ 		gor->nosub = (cflags & GO_REG_NOSUB) != 0;
+ 		return 0;
+ 	}

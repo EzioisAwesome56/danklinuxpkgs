@@ -1,0 +1,103 @@
+diff -ruN mate-desktop-1.14.1/configure.ac mate-desktop-1.14.1-mod/configure.ac
+--- mate-desktop-1.14.1/configure.ac	2016-05-20 19:58:56.000000000 -0400
++++ mate-desktop-1.14.1-mod/configure.ac	2025-03-23 16:42:27.540871809 -0400
+@@ -63,10 +63,12 @@
+ AC_DEFINE(MATE_MINOR, [mate_minor], [Define to the minor version])
+ AC_DEFINE(MATE_MICRO, [mate_micro], [Define to the micro version])
+ 
+-MATE_COMMON_INIT
+-MATE_DEBUG_CHECK
+-MATE_COMPILE_WARNINGS([maximum])
+-MATE_MAINTAINER_MODE_DEFINES
++# too lazy to install mate-common when we're not even building
++# the entire mate desktop, so these are missing
++#MATE_COMMON_INIT
++#MATE_DEBUG_CHECK
++#MATE_COMPILE_WARNINGS([maximum])
++#MATE_MAINTAINER_MODE_DEFINES
+ 
+ AC_ARG_ENABLE(deprecation_flags,
+               [AC_HELP_STRING([--enable-deprecation-flags],
+@@ -154,17 +156,6 @@
+ AC_SUBST(XRANDR_REQUIRED)
+ 
+ dnl ----------------------------------------------------------------------------
+-dnl DCONF
+-dnl ----------------------------------------------------------------------------
+-
+-DCONF_REQUIRED=0.13.4
+-
+-PKG_CHECK_MODULES(DCONF, dconf >= $DCONF_REQUIRED)
+-
+-AC_SUBST(DCONF_CFLAGS)
+-AC_SUBST(DCONF_LIBS)
+-
+-dnl ----------------------------------------------------------------------------
+ dnl startup notification
+ dnl ----------------------------------------------------------------------------
+ STARTUP_NOTIFICATION_VERSION=0.5
+diff -ruN mate-desktop-1.14.1/docs/reference/mate-desktop/Makefile.am mate-desktop-1.14.1-mod/docs/reference/mate-desktop/Makefile.am
+--- mate-desktop-1.14.1/docs/reference/mate-desktop/Makefile.am	2016-05-20 19:58:56.000000000 -0400
++++ mate-desktop-1.14.1-mod/docs/reference/mate-desktop/Makefile.am	2025-03-23 16:11:53.428842771 -0400
+@@ -71,10 +71,10 @@
+ GTKDOC_LIBS=$(MATE_DESKTOP_LIBS) $(top_builddir)/libmate-desktop/libmate-desktop-2.la
+ 
+ # This includes the standard gtk-doc make rules, copied by gtkdocize.
+-include $(top_srcdir)/gtk-doc.make
++#include $(top_srcdir)/gtk-doc.make
+ 
+ # Other files to distribute
+ # e.g. EXTRA_DIST += version.xml.in
+-EXTRA_DIST += 
++EXTRA_DIST = 
+ 
+ -include $(top_srcdir)/git.mk
+diff -ruN mate-desktop-1.14.1/libmate-desktop/Makefile.am mate-desktop-1.14.1-mod/libmate-desktop/Makefile.am
+--- mate-desktop-1.14.1/libmate-desktop/Makefile.am	2016-05-20 19:58:56.000000000 -0400
++++ mate-desktop-1.14.1-mod/libmate-desktop/Makefile.am	2025-03-23 17:07:45.346895839 -0400
+@@ -3,7 +3,6 @@
+ 	mate-desktop.h \
+ 	mate-desktop-utils.h \
+ 	mate-desktop-item.h \
+-	mate-dconf.h \
+ 	mate-gsettings.h \
+ 	mate-aboutdialog.h \
+ 	mate-bg.h			\
+@@ -21,8 +20,6 @@
+ AM_CPPFLAGS =							\
+ 	$(MATE_DESKTOP_CFLAGS)					\
+ 	$(XLIB_CFLAGS)						\
+-	$(DCONF_CFLAGS)						\
+-	-DG_LOG_DOMAIN=\"MateDesktop\"				\
+ 	-DMATELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale\""	\
+ 	-DPNP_IDS=\""$(PNP_IDS)"\"				\
+ 	$(DISABLE_DEPRECATED_CFLAGS)
+@@ -37,7 +34,6 @@
+ 	mate-desktop-utils.c	\
+ 	mate-desktop-thumbnail.c \
+ 	mate-thumbnail-pixbuf-utils.c \
+-	mate-dconf.c \
+ 	mate-gsettings.c \
+ 	mate-aboutdialog.c \
+ 	mate-bg.c		\
+@@ -61,8 +57,7 @@
+ 
+ libmate_desktop_2_la_LIBADD =	\
+ 	$(XLIB_LIBS)		\
+-	$(MATE_DESKTOP_LIBS)	\
+-	$(DCONF_LIBS)
++	$(MATE_DESKTOP_LIBS)
+ 
+ libmate_desktop_2_la_LDFLAGS = \
+ 	-version-info $(LT_VERSION) \
+diff -ruN mate-desktop-1.14.1/libmate-desktop/mate-desktop-2.0.pc.in mate-desktop-1.14.1-mod/libmate-desktop/mate-desktop-2.0.pc.in
+--- mate-desktop-1.14.1/libmate-desktop/mate-desktop-2.0.pc.in	2016-05-20 19:58:56.000000000 -0400
++++ mate-desktop-1.14.1-mod/libmate-desktop/mate-desktop-2.0.pc.in	2025-03-23 17:16:40.086904305 -0400
+@@ -6,7 +6,6 @@
+ Name: mate-desktop-2.0
+ Description: Utility library for loading .desktop files
+ Requires: gtk+-@GTK_API_VERSION@ @STARTUP_NOTIFICATION_PACKAGE@
+-Requires.private: dconf
+ Version: @VERSION@
+ Libs: -L${libdir} -lmate-desktop-2
+ Cflags: -I${includedir}/mate-desktop-2.0

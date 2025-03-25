@@ -1,0 +1,11 @@
+config BR2_PACKAGE_FILE_ROLLER
+	bool "file_roller"
+	depends on BR2_PACKAGE_LIBGTK2
+	select BR2_PACKAGE_GCONF
+	select BR2_PACKAGE_GSETTINGS_DESKTOP_SCHEMAS
+	help
+		GNOME file archival utility. old version that still
+		uses gtk2, tho with optional gtk3 support thrown in
+		for some reason.
+		
+		may or may not actually be the one from MATE

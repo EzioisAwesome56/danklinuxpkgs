@@ -1,0 +1,10 @@
+config BR2_PACKAGE_VTE_LEG
+	bool "vte_leg"
+	select BR2_PACKAGE_LIBGTK2
+	select BR2_PACKAGE_GOBJECT_INTROSPECTION
+	depends on BR2_PACKAGE_GETTEXT
+	help
+		legacy version of vte that doesnt need gtk3 or
+		dumb transparency effects
+		
+		https://download.gnome.org/sources/vte/0.28/

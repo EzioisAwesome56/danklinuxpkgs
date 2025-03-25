@@ -1,0 +1,8 @@
+config BR2_PACKAGE_LIBPTYTTY
+	bool "libptytty"
+	help
+	pretty much a terminal library for rvxt
+	who saw that coming
+	
+	BROKEN 3-17-2025:
+	requires a CmakeFiles.txt patch that I am too lazy to make

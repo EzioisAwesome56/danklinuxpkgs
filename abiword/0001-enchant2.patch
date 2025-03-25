@@ -1,0 +1,80 @@
+diff -ruN abiword-2.6.4/AUTHORS abiword-2.6.4-mod/AUTHORS
+--- abiword-2.6.4/AUTHORS	1969-12-31 19:00:00.000000000 -0500
++++ abiword-2.6.4-mod/AUTHORS	2025-03-21 17:16:34.183558728 -0400
+@@ -0,0 +1 @@
++autotools was complaining about the lack of this file. so i made a dummy file
+diff -ruN abiword-2.6.4/ChangeLog abiword-2.6.4-mod/ChangeLog
+--- abiword-2.6.4/ChangeLog	1969-12-31 19:00:00.000000000 -0500
++++ abiword-2.6.4-mod/ChangeLog	2025-03-21 17:16:34.183558728 -0400
+@@ -0,0 +1 @@
++autotools was complaining about the lack of this file. so i made a dummy file
+diff -ruN abiword-2.6.4/NEWS abiword-2.6.4-mod/NEWS
+--- abiword-2.6.4/NEWS	1969-12-31 19:00:00.000000000 -0500
++++ abiword-2.6.4-mod/NEWS	2025-03-21 17:16:34.183558728 -0400
+@@ -0,0 +1 @@
++autotools was complaining about the lack of this file. so i made a dummy file
+diff -ruN abiword-2.6.4/README abiword-2.6.4-mod/README
+--- abiword-2.6.4/README	1969-12-31 19:00:00.000000000 -0500
++++ abiword-2.6.4-mod/README	2025-03-21 17:16:34.183558728 -0400
+@@ -0,0 +1 @@
++autotools was complaining about the lack of this file. so i made a dummy file
+diff -ruN abiword-2.6.4/ac-helpers/abi-spell.m4 abiword-2.6.4-mod/ac-helpers/abi-spell.m4
+--- abiword-2.6.4/ac-helpers/abi-spell.m4	2008-07-13 09:09:16.000000000 -0400
++++ abiword-2.6.4-mod/ac-helpers/abi-spell.m4	2025-03-21 16:56:20.868660203 -0400
+@@ -34,9 +34,9 @@
+ AM_CONDITIONAL(ENABLE_SPELL, test x$do_spell != xfalse)
+ 
+ if test x$do_spell != xfalse ; then
+-	PKG_CHECK_MODULES(SPELL,[enchant >= 1.2.0], 
++	PKG_CHECK_MODULES(SPELL,[enchant-2], 
+ 	[
+-		ABIWORD_REQUIRED_PKGS="$ABIWORD_REQUIRED_PKGS enchant >= 1.2.0"
++		ABIWORD_REQUIRED_PKGS="$ABIWORD_REQUIRED_PKGS enchant-2"
+  	])
+ 	SPELL_CFLAGS="$SPELL_CFLAGS -DENABLE_SPELL"
+ 	AC_DEFINE(WITH_ENCHANT, 1, [ Define if you have Enchant ])
+diff -ruN abiword-2.6.4/configure.ac abiword-2.6.4-mod/configure.ac
+--- abiword-2.6.4/configure.ac	2008-07-13 09:11:02.000000000 -0400
++++ abiword-2.6.4-mod/configure.ac	2025-03-21 17:32:47.965477286 -0400
+@@ -34,6 +34,11 @@
+ dnl AC_CONFIG_HEADERS(config.h)
+ AM_INIT_AUTOMAKE
+ 
++dnl dumb stupid hacks to convince this to compile
++m4_pattern_allow([AM_ACLOCAL_INCLUDE])
++m4_pattern_allow([AM_BINRELOC])
++AC_CONFIG_MACRO_DIR([ac-helpers])
++
+ ABIWORD_SERIES="abiword_series"
+ AC_SUBST(ABIWORD_SERIES)
+ AC_DEFINE_UNQUOTED([ABIWORD_SERIES], [ "${ABIWORD_SERIES}" ])
+diff -ruN abiword-2.6.4/src/other/spell/xp/enchant_checker.cpp abiword-2.6.4-mod/src/other/spell/xp/enchant_checker.cpp
+--- abiword-2.6.4/src/other/spell/xp/enchant_checker.cpp	2008-07-13 09:09:18.000000000 -0400
++++ abiword-2.6.4-mod/src/other/spell/xp/enchant_checker.cpp	2025-03-21 16:59:16.341645528 -0400
+@@ -111,7 +111,7 @@
+ 				pvSugg->addItem (ucszSugg);
+ 		}
+ 
+-		enchant_dict_free_suggestions (m_dict, suggestions);
++		enchant_dict_free_string_list (m_dict, suggestions);
+ 	}
+ 
+ 	return pvSugg;
+@@ -123,7 +123,7 @@
+ 
+ 	if (word && len) {
+ 		UT_UTF8String utf8 (word, len);
+-		enchant_dict_add_to_personal (m_dict, utf8.utf8_str(), utf8.byteLength());
++		enchant_dict_add (m_dict, utf8.utf8_str(), utf8.byteLength());
+ 		return true;
+ 	}
+ 	return false;
+@@ -134,7 +134,7 @@
+ 	UT_return_val_if_fail (m_dict, false);
+ 
+ 	UT_UTF8String ignore (toCorrect, toCorrectLen);
+-	return enchant_dict_is_in_session (m_dict, ignore.utf8_str(), ignore.byteLength());
++	return enchant_dict_is_added (m_dict, ignore.utf8_str(), ignore.byteLength());
+ }
+ 
+ void EnchantChecker::ignoreWord (const UT_UCSChar *toCorrect, size_t toCorrectLen)

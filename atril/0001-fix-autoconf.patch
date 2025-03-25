@@ -1,0 +1,82 @@
+diff -ruN atril-1.14.1/Makefile.am atril-1.14.1-mod/Makefile.am
+--- atril-1.14.1/Makefile.am	2016-05-21 10:16:56.000000000 -0400
++++ atril-1.14.1-mod/Makefile.am	2025-03-23 18:40:53.197984305 -0400
+@@ -9,8 +9,7 @@
+     libmisc     \
+     properties  \
+     shell       \
+-    po          \
+-    help
++    po
+ 
+ if ENABLE_TESTS
+     SUBDIRS += test
+@@ -73,7 +72,6 @@
+     $(srcdir)/mkinstalldirs  \
+     $(srcdir)/omf.make       \
+     $(srcdir)/xmldocs.make   \
+-    $(srcdir)/gtk-doc.make   \
+     $(srcdir)/po/Makefile.in.in \
+     `find "$(srcdir)" -type f -name Makefile.in -print`
+ 
+diff -ruN atril-1.14.1/help/reference/Makefile.am atril-1.14.1-mod/help/reference/Makefile.am
+--- atril-1.14.1/help/reference/Makefile.am	2016-05-21 10:16:56.000000000 -0400
++++ atril-1.14.1-mod/help/reference/Makefile.am	2025-03-23 18:29:17.719973294 -0400
+@@ -1,2 +1,2 @@
+-SUBDIRS = libdocument libview shell
++SUBDIRS =
+ -include $(top_srcdir)/git.mk
+diff -ruN atril-1.14.1/help/reference/libdocument/Makefile.am atril-1.14.1-mod/help/reference/libdocument/Makefile.am
+--- atril-1.14.1/help/reference/libdocument/Makefile.am	2016-05-21 10:16:56.000000000 -0400
++++ atril-1.14.1-mod/help/reference/libdocument/Makefile.am	2025-03-23 18:30:58.587974891 -0400
+@@ -111,12 +111,11 @@
+ 	$(LIBDOCUMENT_LIBS)
+ 
+ # This includes the standard gtk-doc make rules, copied by gtkdocize.
+-include $(top_srcdir)/gtk-doc.make
++#include $(top_srcdir)/gtk-doc.make
+ 
+ # Other files to distribute
+ # e.g. EXTRA_DIST += version.xml.in
+-EXTRA_DIST += \
+-	version.xml.in
++EXTRA_DIST = version.xml.in
+ 
+ # Files not to distribute
+ # for --rebuild-types in $(SCAN_OPTIONS), e.g. $(DOC_MODULE).types
+diff -ruN atril-1.14.1/help/reference/libview/Makefile.am atril-1.14.1-mod/help/reference/libview/Makefile.am
+--- atril-1.14.1/help/reference/libview/Makefile.am	2016-05-21 10:16:56.000000000 -0400
++++ atril-1.14.1-mod/help/reference/libview/Makefile.am	2025-03-23 18:31:10.052975073 -0400
+@@ -120,12 +120,11 @@
+ 	$(WEBKIT_LIBS)
+ 
+ # This includes the standard gtk-doc make rules, copied by gtkdocize.
+-include $(top_srcdir)/gtk-doc.make
++#include $(top_srcdir)/gtk-doc.make
+ 
+ # Other files to distribute
+ # e.g. EXTRA_DIST += version.xml.in
+-EXTRA_DIST += \
+-	version.xml.in
++EXTRA_DIST = version.xml.in
+ 
+ # Files not to distribute
+ # for --rebuild-types in $(SCAN_OPTIONS), e.g. $(DOC_MODULE).types
+diff -ruN atril-1.14.1/help/reference/shell/Makefile.am atril-1.14.1-mod/help/reference/shell/Makefile.am
+--- atril-1.14.1/help/reference/shell/Makefile.am	2016-05-21 10:16:56.000000000 -0400
++++ atril-1.14.1-mod/help/reference/shell/Makefile.am	2025-03-23 18:31:22.371975268 -0400
+@@ -131,12 +131,11 @@
+ 	$(filter-out $(FILTER_OUT),$(wildcard $(top_builddir)/shell/*.o))
+ 
+ # This includes the standard gtk-doc make rules, copied by gtkdocize.
+-include $(top_srcdir)/gtk-doc.make
++#include $(top_srcdir)/gtk-doc.make
+ 
+ # Other files to distribute
+ # e.g. EXTRA_DIST += version.xml.in
+-EXTRA_DIST += \
+-	version.xml.in
++EXTRA_DIST = version.xml.in
+ 
+ # Files not to distribute
+ # for --rebuild-types in $(SCAN_OPTIONS), e.g. $(DOC_MODULE).types

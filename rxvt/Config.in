@@ -1,0 +1,5 @@
+config BR2_PACKAGE_RXVT
+	bool "rxvt"
+	select BR2_PACKAGE_LIBPTYTTY
+	help
+	its a terminal. probably better then xterm

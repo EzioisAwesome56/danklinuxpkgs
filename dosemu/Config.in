@@ -1,0 +1,13 @@
+config BR2_PACKAGE_DOSEMU
+	bool "dosemu"
+	select BR2_PACKAGE_GPM
+	select BR2_PACKAGE_FLUIDSYNTH
+	depends on BR2_PACKAGE_ALSA_LIB
+	help
+		DOSEMU is a way to run dos applications on linux
+		does not work at all like how DOSbox works.
+		
+		thanks to gentoo for still packaging this oldass software
+		BROKEN 3-24-2025:
+		appears to compile fine, but does not accept keyboard input
+		once a DOS actually starts.

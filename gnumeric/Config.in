@@ -1,0 +1,22 @@
+config BR2_PACKAGE_GNUMERIC
+	bool "gnumeric"
+	select BR2_PACKAGE_LIBGLADE
+	select BR2_PACKAGE_LIBGTK2
+	select BR2_PACKAGE_GOFFICE
+	help
+		a spreadsheet program from gnome. it exists
+		I guess.
+
+		https://download.gnome.org/sources/gnumeric/1.10/
+		
+		notice: may or may not break your entire buildsystem
+		results are unpredictable and annoying
+		
+		i got it to build in a screen session, while also
+		outputting logs to a file via
+		"make 2>&1 | tee file.txt", so try that if in doubt
+		
+		BROKEN, SORT OF: doesnt appear to install in testing
+		compiles, but binary is not copied to target
+		investigation will be required at some point
+		3-18-2025

@@ -1,0 +1,10 @@
+config BR2_PACKAGE_WV
+	bool "wv"
+	depends on BR2_PACKAGE_LIBGSF
+	help
+		wv is a library made by abiword for like
+		reading microsoft word files or something
+		atleast that is what BLFS tells me. they also
+		provide the mirror for this source code!
+		
+		https://www.linuxfromscratch.org/blfs/view/svn/general/wv.html

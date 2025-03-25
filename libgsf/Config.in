@@ -1,0 +1,9 @@
+config BR2_PACKAGE_LIBGSF
+	bool "libgsf"
+	select BR2_PACKAGE_LIBXML2
+	help
+		libgsf is a thing for handling structured file formats
+		atleast whats what BLFS says. ive never heard of
+		this fucking library before in my life
+		
+		https://download.gnome.org/sources/libgsf/1.14/

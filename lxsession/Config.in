@@ -1,0 +1,17 @@
+config BR2_PACKAGE_LXSESSION
+	bool "lxsession"
+	depends on BR2_PACKAGE_LIBGTK2
+	select BR2_PACKAGE_POLKIT
+	select BR2_PACKAGE_OPENBOX
+	help
+		the main lxde program bit thing. starts an LXDE session
+		
+		note: while you can use it with icewm, you probably shouldn't
+		thus, this package also selects openbox
+		you should probably also take lxpanel, too
+		
+		based on how arch packages it
+		https://archlinux.org/packages/extra/x86_64/lxsession/
+
+comment "lxsession depends on gtk2!"
+	depends on !BR2_PACKAGE_LIBGTK2

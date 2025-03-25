@@ -1,0 +1,10 @@
+config BR2_PACKAGE_SAKURA
+	bool "sakura"
+	select BR2_PACKAGE_LIBGTK2
+	select BR2_PACKAGE_VTE_LEG
+	help
+		Sakura is a small and simple terminal emulator based on
+		the gtk framework and it small
+		
+		we ship an older version because we do not provide gtk3
+		https://github.com/dabisu/sakura

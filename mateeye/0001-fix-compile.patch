@@ -1,0 +1,38 @@
+diff -ruN eom-1.14.2/Makefile.am eom-1.14.2-mod/Makefile.am
+--- eom-1.14.2/Makefile.am	2016-08-09 16:51:10.000000000 -0400
++++ eom-1.14.2-mod/Makefile.am	2025-03-23 17:20:20.799907799 -0400
+@@ -4,7 +4,7 @@
+ jpeg_DIRS = jpegutils
+ endif
+ 
+-SUBDIRS = $(jpeg_DIRS) cut-n-paste bindings src man plugins po help data doc
++SUBDIRS = $(jpeg_DIRS) cut-n-paste bindings src man plugins po data doc
+ 
+ EXTRA_DIST = 		\
+ 	AUTHORS			\
+@@ -33,7 +33,6 @@
+ 	$(srcdir)/config.h.in \
+ 	$(srcdir)/config.sub \
+ 	$(srcdir)/depcomp \
+-	$(srcdir)/gtk-doc.make \
+ 	$(srcdir)/install-sh \
+ 	$(srcdir)/ltmain.sh \
+ 	$(srcdir)/missing \
+diff -ruN eom-1.14.2/doc/reference/Makefile.am eom-1.14.2-mod/doc/reference/Makefile.am
+--- eom-1.14.2/doc/reference/Makefile.am	2016-08-09 16:51:10.000000000 -0400
++++ eom-1.14.2-mod/doc/reference/Makefile.am	2025-03-23 15:19:58.255793452 -0400
+@@ -109,11 +109,12 @@
+ 	$(MORE_GTKDOC_LIBS)
+ 
+ # This includes the standard gtk-doc make rules, copied by gtkdocize.
+-include $(top_srcdir)/gtk-doc.make
++#include $(top_srcdir)/gtk-doc.make
+ 
+ # Other files to distribute
+ # e.g. EXTRA_DIST += version.xml.in
+-EXTRA_DIST += version.xml.in \
++EXTRA_DIST = \ 
++          version.xml.in \
+ 	      $(DOC_MODULE)-docs.sgml.in
+ 
+ # Files not to distribute

@@ -1,0 +1,24 @@
+diff -ruN fox-1.6.59/configure.ac fox-1.6.59-mod/configure.ac
+--- fox-1.6.59/configure.ac	2024-11-23 14:37:53.000000000 -0500
++++ fox-1.6.59-mod/configure.ac	2025-03-15 21:36:47.000000000 -0400
+@@ -75,8 +75,8 @@
+ AC_PROG_LIBTOOL
+ 
+ X_BASE_LIBS="-lX11 -lXext"
+-LIBGLU="-lGLU"
+-LIBGL="-lGL"
++#LIBGLU="-lGLU"
++#LIBGL="-lGL"
+ 
+ # Checks for header files.
+ AC_PATH_X
+@@ -189,7 +189,8 @@
+ AC_MSG_CHECKING(for Xft support)
+ AC_ARG_WITH(xft,[  --with-xft              enable Xft support])
+ AC_MSG_RESULT([$with_xft])
+-if test "x$with_xft" != "xno"; then
++if false; then
++#if test "x$with_xft" != "xno"; then
+ XFTCFLAGS="-I/usr/include/freetype2"
+ XFTLIBS="-lfreetype -lfontconfig -lXft"
+ saved_cppflags="${CXXFLAGS}"

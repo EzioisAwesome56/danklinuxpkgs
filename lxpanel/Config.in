@@ -1,0 +1,14 @@
+config BR2_PACKAGE_LXPANEL
+	bool "lxpanel"
+	select BR2_PACKAGE_LIBWNCK
+	select BR2_PACKAGE_KEYBINDER2
+	depends on BR2_PACKAGE_ALSA_LIB
+	help
+		the taskbar thing for lxde. without this it would be
+		pretty useless lmao
+		
+		based on how arch packages it
+		https://archlinux.org/packages/extra/x86_64/lxpanel/
+
+comment "lxpanel requires alsa-lib"
+	depends on !BR2_PACKAGE_ALSA_LIB

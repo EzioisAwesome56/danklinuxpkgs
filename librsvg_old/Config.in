@@ -1,0 +1,13 @@
+config BR2_PACKAGE_LIBRSVG_OLD
+	select BR2_PACKAGE_LIBCROCOREINST
+	select BR2_PACKAGE_GOBJECT_INTROSPECTION
+	select BR2_PACKAGE_PANGO
+	select BR2_PACKAGE_GDK_PIXBUF
+	bool "librsvg_old"
+	help
+		the last c version of librsvg
+		
+		why did they port it to rust how dare they be racist to the
+		intel i486 platform. smh
+		
+		https://download.gnome.org/sources/librsvg/2.40/

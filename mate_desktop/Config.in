@@ -1,0 +1,13 @@
+config BR2_PACKAGE_MATE_DESKTOP
+	bool "mate_desktop"
+	depends on BR2_PACKAGE_LIBGTK2
+	select BR2_PACKAGE_GCONF
+	select BR2_PACKAGE_GSETTINGS_DESKTOP_SCHEMAS
+	help
+		Mate-Desktop is a bunch of crap that we need for some reason
+		googling suggests its some kind of metapackage for loading
+		.desktop files for some reason? I don't even know why we
+		need this but Eye of Mate wants it so
+		
+		from the MATE Desktop
+		https://mate-desktop.org/

@@ -1,0 +1,10 @@
+config BR2_PACKAGE_DOSEMU2
+	bool "dosemu2"
+	select BR2_PACKAGE_GPM
+	select BR2_PACKAGE_FLUIDSYNTH
+	depends on BR2_PACKAGE_ALSA_LIB
+	help
+		DOSEMU2 is apparently a fork/continuation of the original
+		dosemu project.
+		
+		I have no fucking idea if this shit actually works though.

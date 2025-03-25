@@ -1,0 +1,11 @@
+config BR2_PACKAGE_GIMP
+	bool "gimp"
+	select BR2_PACKAGE_LIBGTK2
+	select BR2_PACKAGE_LIBRSVG_OLD
+	select BR2_PACKAGE_LIBART
+	help
+		very fucking old gimp. should perform ok
+		on very old machines
+		
+		GIMP is an image editor
+		https://www.gimp.org/

@@ -1,0 +1,15 @@
+config BR2_PACKAGE_XFE
+	bool "xfefiles"
+	depends on BR2_PACKAGE_FOXTOOLKIT
+	help
+		xfe is a small file manager based on the
+		fox toolkit. it exists and works or something
+		like that
+		
+		http://roland65.free.fr/xfe/index.php?page=home
+		BROKEN 3-17-2025:
+		claims to be unable to find part of fox toolkit despite
+		it being installed
+
+comment "xfe requires fox toolkit"
+	depends on !BR2_PACKAGE_FOXTOOLKIT

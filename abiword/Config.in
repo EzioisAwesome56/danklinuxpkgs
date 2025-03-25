@@ -1,0 +1,22 @@
+config BR2_PACKAGE_ABIWORD
+	bool "abiword"
+	select BR2_PACKAGE_LIBRSVG_OLD
+	select BR2_PACKAGE_LIBGSF
+	select BR2_PACKAGE_WV
+	select BR2_PACKAGE_ENCHANT
+	select BR2_PACKAGE_BOOST
+	select BR2_PACKAGE_LIBXSLT
+	select BR2_PACKAGE_LIBGTK2
+	select BR2_PACKAGE_GOFFICE
+	select BR2_PACKAGE_LIBGLADE
+	help
+		this word processor was once thought to be
+		entirely fucking dead. 
+		
+		surprise! its not.
+		
+		some patches stolen from arch AUR abiword-gtk2
+		BROKEN 3-24-2025:
+		tried to do a downgrade to 2.6.x, did not working
+		ultimately decided to can the concept of including an office
+		suite in 1.0

@@ -1,0 +1,7 @@
+config BR2_PACKAGE_LXTERM
+	bool "lxterminal"
+	select BR2_PACKAGE_VTE_LEG
+	help
+		lxde terminal, but compiled using GTK2 instead of GTK3
+		
+		https://aur.archlinux.org/packages/lxterminal-gtk2

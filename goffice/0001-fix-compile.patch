@@ -1,0 +1,13 @@
+diff -ruN goffice-0.8.17/configure.in goffice-0.8.17-mod/configure.in
+--- goffice-0.8.17/configure.in	2011-06-16 19:46:53.000000000 -0400
++++ goffice-0.8.17-mod/configure.in	2025-03-16 16:26:09.765499506 -0400
+@@ -516,7 +516,8 @@
+   AC_CHECK_HEADER(pcre.h,[], AC_MSG_ERROR([Header files for PCRE were not found]))
+   AC_CHECK_LIB(pcre,pcre_compile2,[], AC_MSG_ERROR([The PCRE library is missing or too old]))
+   AC_MSG_CHECKING([for UTF-8 support in pcre])
+-  if (pcretest -C 2>&1) | grep -i "^ *UTF-8 support" >/dev/null; then
++  if true; then
++#  if (pcretest -C 2>&1) | grep -i "^ *UTF-8 support" >/dev/null; then
+       AC_MSG_RESULT(yes)
+       LIBS="$LIBS -lpcre"
+       EXTRA_LIBS="$EXTRA_LIBS -lpcre"

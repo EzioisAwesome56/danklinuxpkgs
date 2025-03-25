@@ -1,0 +1,43 @@
+diff -ruN dosemu2/src/base/dev/vga/Makefile dosemu2-mod/src/base/dev/vga/Makefile
+--- dosemu2/src/base/dev/vga/Makefile	2024-04-09 05:12:30.000000000 -0400
++++ dosemu2-mod/src/base/dev/vga/Makefile	2025-03-24 20:31:00.646162396 -0400
+@@ -10,7 +10,7 @@
+ endif
+ 
+ SFILES  = vesabios_pm.S vesabios.S
+-CFILES = miscemu.c vgaemu.c vesa.c dacemu.c attremu.c seqemu.c crtcemu.c \
++CFILES = miscemu.c vesa.c dacemu.c attremu.c seqemu.c crtcemu.c \
+          gfxemu.c hercemu.c vgafonts.c
+ 
+ all: lib
+diff -ruN dosemu2/src/base/emu-i386/Makefile dosemu2-mod/src/base/emu-i386/Makefile
+--- dosemu2/src/base/emu-i386/Makefile	2024-04-09 05:12:30.000000000 -0400
++++ dosemu2-mod/src/base/emu-i386/Makefile	2025-03-24 20:34:37.588144252 -0400
+@@ -2,10 +2,6 @@
+ include $(top_builddir)/Makefile.conf
+ 
+ CFILES = cpu.c do_vm86.c cputime.c coopth_vm86.c
+-ifeq ($(KVM),1)
+-CFILES += kvm.c
+-SFILES = kvmmon.S
+-endif
+ 
+ include $(REALTOPDIR)/src/Makefile.common
+ 
+diff -ruN dosemu2/src/base/init/config.c dosemu2-mod/src/base/init/config.c
+--- dosemu2/src/base/init/config.c	2024-04-09 05:12:30.000000000 -0400
++++ dosemu2-mod/src/base/init/config.c	2025-03-24 20:21:18.716211065 -0400
+@@ -899,10 +899,12 @@
+ 
+ static void config_post_process(void)
+ {
++	// di gets used even if you disable the x86 emulator
++	// but we actually need it
++	char *di;
+ #ifdef X86_EMULATOR
+     char buf[256];
+     size_t n;
+-    char *di;
+     FILE *f = popen("uname -r", "r");
+     n = fread(buf, 1, sizeof(buf) - 1, f);
+     buf[n >= 0 ? n : 0] = 0;

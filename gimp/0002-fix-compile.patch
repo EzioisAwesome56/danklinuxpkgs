@@ -1,0 +1,465 @@
+diff -ruN gimp-2.4.7/app/Makefile.in gimp-2.4.7-mod/app/Makefile.in
+--- gimp-2.4.7/app/Makefile.in	2008-08-21 05:36:42.000000000 -0400
++++ gimp-2.4.7-mod/app/Makefile.in	2025-03-19 14:54:28.724026799 -0400
+@@ -165,7 +165,7 @@
+ CCASDEPMODE = @CCASDEPMODE@
+ CCASFLAGS = @CCASFLAGS@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = @CFLAGS@ -lm
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff -ruN gimp-2.4.7/libgimpthumb/Makefile.in gimp-2.4.7-mod/libgimpthumb/Makefile.in
+--- gimp-2.4.7/libgimpthumb/Makefile.in	2008-08-21 05:36:46.000000000 -0400
++++ gimp-2.4.7-mod/libgimpthumb/Makefile.in	2025-03-19 14:46:24.891067264 -0400
+@@ -122,7 +122,7 @@
+ CCASDEPMODE = @CCASDEPMODE@
+ CCASFLAGS = @CCASFLAGS@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = @CFLAGS@ -lgobject-2.0 -lglib-2.0 -L../libgimpmath/.libs -lgimpmath-2.0
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff -ruN gimp-2.4.7/plug-ins/FractalExplorer/Makefile.in gimp-2.4.7-mod/plug-ins/FractalExplorer/Makefile.in
+--- gimp-2.4.7/plug-ins/FractalExplorer/Makefile.in	2008-08-21 05:36:46.000000000 -0400
++++ gimp-2.4.7-mod/plug-ins/FractalExplorer/Makefile.in	2025-03-19 15:17:37.467910652 -0400
+@@ -111,7 +111,7 @@
+ CCASDEPMODE = @CCASDEPMODE@
+ CCASFLAGS = @CCASFLAGS@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = @CFLAGS@ -L../../libgimpmodule/.libs -lgimpmodule-2.0
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff -ruN gimp-2.4.7/plug-ins/Lighting/Makefile.in gimp-2.4.7-mod/plug-ins/Lighting/Makefile.in
+--- gimp-2.4.7/plug-ins/Lighting/Makefile.in	2008-08-21 05:36:47.000000000 -0400
++++ gimp-2.4.7-mod/plug-ins/Lighting/Makefile.in	2025-03-19 15:10:16.399947540 -0400
+@@ -113,7 +113,7 @@
+ CCASDEPMODE = @CCASDEPMODE@
+ CCASFLAGS = @CCASFLAGS@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = @CFLAGS@ -lm -L../../libgimpmodule/.libs -lgimpmodule-2.0
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff -ruN gimp-2.4.7/plug-ins/MapObject/Makefile.in gimp-2.4.7-mod/plug-ins/MapObject/Makefile.in
+--- gimp-2.4.7/plug-ins/MapObject/Makefile.in	2008-08-21 05:36:47.000000000 -0400
++++ gimp-2.4.7-mod/plug-ins/MapObject/Makefile.in	2025-03-19 15:19:04.949903335 -0400
+@@ -103,7 +103,7 @@
+ CCASDEPMODE = @CCASDEPMODE@
+ CCASFLAGS = @CCASFLAGS@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = @CFLAGS@ -L../../libgimpmodule/.libs -lgimpmodule-2.0
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff -ruN gimp-2.4.7/plug-ins/bmp/Makefile.in gimp-2.4.7-mod/plug-ins/bmp/Makefile.in
+--- gimp-2.4.7/plug-ins/bmp/Makefile.in	2008-08-21 05:36:47.000000000 -0400
++++ gimp-2.4.7-mod/plug-ins/bmp/Makefile.in	2025-03-19 16:23:01.939582430 -0400
+@@ -100,7 +100,7 @@
+ CCASDEPMODE = @CCASDEPMODE@
+ CCASFLAGS = @CCASFLAGS@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = @CFLAGS@ -L../../libgimpmodule/.libs -lgimpmodule-2.0
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff -ruN gimp-2.4.7/plug-ins/common/Makefile.in gimp-2.4.7-mod/plug-ins/common/Makefile.in
+--- gimp-2.4.7/plug-ins/common/Makefile.in	2008-08-21 05:36:47.000000000 -0400
++++ gimp-2.4.7-mod/plug-ins/common/Makefile.in	2025-03-19 16:43:48.548478170 -0400
+@@ -1126,7 +1126,7 @@
+ CCASDEPMODE = @CCASDEPMODE@
+ CCASFLAGS = @CCASFLAGS@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = @CFLAGS@ -L../../libgimpmodule/.libs -lgimpmodule-2.0
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff -ruN gimp-2.4.7/plug-ins/faxg3/Makefile.in gimp-2.4.7-mod/plug-ins/faxg3/Makefile.in
+--- gimp-2.4.7/plug-ins/faxg3/Makefile.in	2008-08-21 05:36:47.000000000 -0400
++++ gimp-2.4.7-mod/plug-ins/faxg3/Makefile.in	2025-03-19 16:48:39.980453796 -0400
+@@ -99,7 +99,7 @@
+ CCASDEPMODE = @CCASDEPMODE@
+ CCASFLAGS = @CCASFLAGS@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = @CFLAGS@ -L../../libgimpmodule/.libs -lgimpmodule-2.0 -L../../libgimpconfig/.libs -lgimpconfig-2.0
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff -ruN gimp-2.4.7/plug-ins/fits/Makefile.in gimp-2.4.7-mod/plug-ins/fits/Makefile.in
+--- gimp-2.4.7/plug-ins/fits/Makefile.in	2008-08-21 05:36:48.000000000 -0400
++++ gimp-2.4.7-mod/plug-ins/fits/Makefile.in	2025-03-19 16:43:48.547478170 -0400
+@@ -100,7 +100,7 @@
+ CCASDEPMODE = @CCASDEPMODE@
+ CCASFLAGS = @CCASFLAGS@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = @CFLAGS@ -L../../libgimpmodule/.libs -lgimpmodule-2.0
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff -ruN gimp-2.4.7/plug-ins/fixit.py gimp-2.4.7-mod/plug-ins/fixit.py
+--- gimp-2.4.7/plug-ins/fixit.py	1969-12-31 19:00:00.000000000 -0500
++++ gimp-2.4.7-mod/plug-ins/fixit.py	2025-03-19 16:43:24.834480153 -0400
+@@ -0,0 +1,45 @@
++import glob
++import os
++
++def main():
++	shit = glob.glob("./*")
++	for fuck in shit:
++		# is it a folder?
++		if (os.path.isdir(fuck)):
++			# check for a makefile
++			shitass = os.path.join(fuck, "Makefile.in")
++			if (os.path.isfile(shitass)):
++				print("Fixing file " + shitass)
++				# open the file
++				bruh = open(shitass)
++				lines = bruh.read().splitlines()
++				# close the file
++				bruh.close()
++				filesize = len(lines)
++				# figure out what line we wanna poke
++				theline = -1
++				for i in range(filesize):
++					if (lines[i] == "CFLAGS = @CFLAGS@"):
++						theline = i
++						break
++				# check if we actually got something
++				if (theline != -1):
++					print("CFLAGS at line: " + str(theline))
++					# get current line
++					cflag = lines[theline]
++					cflag += " -L../../libgimpmodule/.libs -lgimpmodule-2.0"
++					# put it back
++					lines[theline] = cflag
++					# write file
++					bruh = open(shitass, "w")
++					for line in lines:
++						bruh.write(line + "\n")
++					print("File fixed!")
++				else:
++					print("ERROR: could not find CFLAGS line. maybe already fixed?")
++		else:
++			print("not a folder!")
++		
++		
++if __name__ == "__main__":
++	main()
+diff -ruN gimp-2.4.7/plug-ins/flame/Makefile.in gimp-2.4.7-mod/plug-ins/flame/Makefile.in
+--- gimp-2.4.7/plug-ins/flame/Makefile.in	2008-08-21 05:36:48.000000000 -0400
++++ gimp-2.4.7-mod/plug-ins/flame/Makefile.in	2025-03-19 16:43:48.544478170 -0400
+@@ -101,7 +101,7 @@
+ CCASDEPMODE = @CCASDEPMODE@
+ CCASFLAGS = @CCASFLAGS@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = @CFLAGS@ -L../../libgimpmodule/.libs -lgimpmodule-2.0
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff -ruN gimp-2.4.7/plug-ins/gfig/Makefile.in gimp-2.4.7-mod/plug-ins/gfig/Makefile.in
+--- gimp-2.4.7/plug-ins/gfig/Makefile.in	2008-08-21 05:36:48.000000000 -0400
++++ gimp-2.4.7-mod/plug-ins/gfig/Makefile.in	2025-03-19 16:43:48.549478170 -0400
+@@ -116,7 +116,7 @@
+ CCASDEPMODE = @CCASDEPMODE@
+ CCASFLAGS = @CCASFLAGS@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = @CFLAGS@ -L../../libgimpmodule/.libs -lgimpmodule-2.0
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff -ruN gimp-2.4.7/plug-ins/gflare/Makefile.in gimp-2.4.7-mod/plug-ins/gflare/Makefile.in
+--- gimp-2.4.7/plug-ins/gflare/Makefile.in	2008-08-21 05:36:48.000000000 -0400
++++ gimp-2.4.7-mod/plug-ins/gflare/Makefile.in	2025-03-19 16:43:48.550478170 -0400
+@@ -110,7 +110,7 @@
+ CCASDEPMODE = @CCASDEPMODE@
+ CCASFLAGS = @CCASFLAGS@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = @CFLAGS@ -L../../libgimpmodule/.libs -lgimpmodule-2.0
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff -ruN gimp-2.4.7/plug-ins/gfli/Makefile.in gimp-2.4.7-mod/plug-ins/gfli/Makefile.in
+--- gimp-2.4.7/plug-ins/gfli/Makefile.in	2008-08-21 05:36:48.000000000 -0400
++++ gimp-2.4.7-mod/plug-ins/gfli/Makefile.in	2025-03-19 16:43:48.549478170 -0400
+@@ -100,7 +100,7 @@
+ CCASDEPMODE = @CCASDEPMODE@
+ CCASFLAGS = @CCASFLAGS@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = @CFLAGS@ -L../../libgimpmodule/.libs -lgimpmodule-2.0
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff -ruN gimp-2.4.7/plug-ins/gimpressionist/Makefile.in gimp-2.4.7-mod/plug-ins/gimpressionist/Makefile.in
+--- gimp-2.4.7/plug-ins/gimpressionist/Makefile.in	2008-08-21 05:36:48.000000000 -0400
++++ gimp-2.4.7-mod/plug-ins/gimpressionist/Makefile.in	2025-03-19 16:43:48.545478170 -0400
+@@ -117,7 +117,7 @@
+ CCASDEPMODE = @CCASDEPMODE@
+ CCASFLAGS = @CCASFLAGS@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = @CFLAGS@ -L../../libgimpmodule/.libs -lgimpmodule-2.0
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff -ruN gimp-2.4.7/plug-ins/help/Makefile.in gimp-2.4.7-mod/plug-ins/help/Makefile.in
+--- gimp-2.4.7/plug-ins/help/Makefile.in	2008-08-21 05:36:48.000000000 -0400
++++ gimp-2.4.7-mod/plug-ins/help/Makefile.in	2025-03-19 17:02:59.168381938 -0400
+@@ -114,7 +114,7 @@
+ CCASDEPMODE = @CCASDEPMODE@
+ CCASFLAGS = @CCASFLAGS@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = @CFLAGS@ -L../../libgimpmodule/.libs -lgimpmodule-2.0 -L../../libgimpconfig/.libs -lgimpconfig-2.0 -L../../libgimpcolor/.libs -lgimpcolor-2.0 -L../../libgimpmath/.libs -lgimpmath-2.0
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff -ruN gimp-2.4.7/plug-ins/helpbrowser/Makefile.in gimp-2.4.7-mod/plug-ins/helpbrowser/Makefile.in
+--- gimp-2.4.7/plug-ins/helpbrowser/Makefile.in	2008-08-21 05:36:48.000000000 -0400
++++ gimp-2.4.7-mod/plug-ins/helpbrowser/Makefile.in	2025-03-19 16:43:48.551478170 -0400
+@@ -104,7 +104,7 @@
+ CCASDEPMODE = @CCASDEPMODE@
+ CCASFLAGS = @CCASFLAGS@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = @CFLAGS@ -L../../libgimpmodule/.libs -lgimpmodule-2.0
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff -ruN gimp-2.4.7/plug-ins/ifscompose/Makefile.in gimp-2.4.7-mod/plug-ins/ifscompose/Makefile.in
+--- gimp-2.4.7/plug-ins/ifscompose/Makefile.in	2008-08-21 05:36:48.000000000 -0400
++++ gimp-2.4.7-mod/plug-ins/ifscompose/Makefile.in	2025-03-19 16:43:48.544478170 -0400
+@@ -101,7 +101,7 @@
+ CCASDEPMODE = @CCASDEPMODE@
+ CCASFLAGS = @CCASFLAGS@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = @CFLAGS@ -L../../libgimpmodule/.libs -lgimpmodule-2.0
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff -ruN gimp-2.4.7/plug-ins/imagemap/Makefile.in gimp-2.4.7-mod/plug-ins/imagemap/Makefile.in
+--- gimp-2.4.7/plug-ins/imagemap/Makefile.in	2008-08-21 05:36:49.000000000 -0400
++++ gimp-2.4.7-mod/plug-ins/imagemap/Makefile.in	2025-03-19 16:43:48.552478169 -0400
+@@ -141,7 +141,7 @@
+ CCASDEPMODE = @CCASDEPMODE@
+ CCASFLAGS = @CCASFLAGS@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = @CFLAGS@ -L../../libgimpmodule/.libs -lgimpmodule-2.0
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff -ruN gimp-2.4.7/plug-ins/jpeg/Makefile.in gimp-2.4.7-mod/plug-ins/jpeg/Makefile.in
+--- gimp-2.4.7/plug-ins/jpeg/Makefile.in	2008-08-21 05:36:49.000000000 -0400
++++ gimp-2.4.7-mod/plug-ins/jpeg/Makefile.in	2025-03-19 16:54:57.275422241 -0400
+@@ -108,7 +108,7 @@
+ CCASDEPMODE = @CCASDEPMODE@
+ CCASFLAGS = @CCASFLAGS@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = @CFLAGS@ -L../../libgimpmodule/.libs -lgimpmodule-2.0 -L../../libgimpbase/.libs -lgimpbase-2.0
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff -ruN gimp-2.4.7/plug-ins/maze/Makefile.in gimp-2.4.7-mod/plug-ins/maze/Makefile.in
+--- gimp-2.4.7/plug-ins/maze/Makefile.in	2008-08-21 05:36:49.000000000 -0400
++++ gimp-2.4.7-mod/plug-ins/maze/Makefile.in	2025-03-19 16:43:48.546478170 -0400
+@@ -101,7 +101,7 @@
+ CCASDEPMODE = @CCASDEPMODE@
+ CCASFLAGS = @CCASFLAGS@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = @CFLAGS@ -L../../libgimpmodule/.libs -lgimpmodule-2.0
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff -ruN gimp-2.4.7/plug-ins/metadata/Makefile.in gimp-2.4.7-mod/plug-ins/metadata/Makefile.in
+--- gimp-2.4.7/plug-ins/metadata/Makefile.in	2008-08-21 05:36:49.000000000 -0400
++++ gimp-2.4.7-mod/plug-ins/metadata/Makefile.in	2025-03-19 16:56:00.031416992 -0400
+@@ -117,7 +117,7 @@
+ CCASDEPMODE = @CCASDEPMODE@
+ CCASFLAGS = @CCASFLAGS@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = @CFLAGS@ -L../../libgimpmodule/.libs -lgimpmodule-2.0 -L../../libgimpconfig/.libs -lgimpconfig-2.0
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff -ruN gimp-2.4.7/plug-ins/pagecurl/Makefile.in gimp-2.4.7-mod/plug-ins/pagecurl/Makefile.in
+--- gimp-2.4.7/plug-ins/pagecurl/Makefile.in	2008-08-21 05:36:49.000000000 -0400
++++ gimp-2.4.7-mod/plug-ins/pagecurl/Makefile.in	2025-03-19 16:43:48.549478170 -0400
+@@ -102,7 +102,7 @@
+ CCASDEPMODE = @CCASDEPMODE@
+ CCASFLAGS = @CCASFLAGS@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = @CFLAGS@ -L../../libgimpmodule/.libs -lgimpmodule-2.0
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff -ruN gimp-2.4.7/plug-ins/print/Makefile.in gimp-2.4.7-mod/plug-ins/print/Makefile.in
+--- gimp-2.4.7/plug-ins/print/Makefile.in	2008-08-21 05:36:49.000000000 -0400
++++ gimp-2.4.7-mod/plug-ins/print/Makefile.in	2025-03-19 16:43:48.546478170 -0400
+@@ -103,7 +103,7 @@
+ CCASDEPMODE = @CCASDEPMODE@
+ CCASFLAGS = @CCASFLAGS@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = @CFLAGS@ -L../../libgimpmodule/.libs -lgimpmodule-2.0
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff -ruN gimp-2.4.7/plug-ins/pygimp/Makefile.in gimp-2.4.7-mod/plug-ins/pygimp/Makefile.in
+--- gimp-2.4.7/plug-ins/pygimp/Makefile.in	2008-08-21 05:36:49.000000000 -0400
++++ gimp-2.4.7-mod/plug-ins/pygimp/Makefile.in	2025-03-19 16:43:48.546478170 -0400
+@@ -161,7 +161,7 @@
+ CCASDEPMODE = @CCASDEPMODE@
+ CCASFLAGS = @CCASFLAGS@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = @CFLAGS@ -L../../libgimpmodule/.libs -lgimpmodule-2.0
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff -ruN gimp-2.4.7/plug-ins/rcm/Makefile.in gimp-2.4.7-mod/plug-ins/rcm/Makefile.in
+--- gimp-2.4.7/plug-ins/rcm/Makefile.in	2008-08-21 05:36:49.000000000 -0400
++++ gimp-2.4.7-mod/plug-ins/rcm/Makefile.in	2025-03-19 16:43:48.549478170 -0400
+@@ -112,7 +112,7 @@
+ CCASDEPMODE = @CCASDEPMODE@
+ CCASFLAGS = @CCASFLAGS@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = @CFLAGS@ -L../../libgimpmodule/.libs -lgimpmodule-2.0
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff -ruN gimp-2.4.7/plug-ins/script-fu/Makefile.in gimp-2.4.7-mod/plug-ins/script-fu/Makefile.in
+--- gimp-2.4.7/plug-ins/script-fu/Makefile.in	2008-08-21 05:36:49.000000000 -0400
++++ gimp-2.4.7-mod/plug-ins/script-fu/Makefile.in	2025-03-19 15:03:02.905983796 -0400
+@@ -117,7 +117,7 @@
+ CCASDEPMODE = @CCASDEPMODE@
+ CCASFLAGS = @CCASFLAGS@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = @CFLAGS@ -lm -L../../libgimp/.libs -L../../libgimpmodule/.libs -lgimpui-2.0 -lgimpmodule-2.0
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff -ruN gimp-2.4.7/plug-ins/sel2path/Makefile.in gimp-2.4.7-mod/plug-ins/sel2path/Makefile.in
+--- gimp-2.4.7/plug-ins/sel2path/Makefile.in	2008-08-21 05:36:50.000000000 -0400
++++ gimp-2.4.7-mod/plug-ins/sel2path/Makefile.in	2025-03-19 16:43:48.551478170 -0400
+@@ -103,7 +103,7 @@
+ CCASDEPMODE = @CCASDEPMODE@
+ CCASFLAGS = @CCASFLAGS@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = @CFLAGS@ -L../../libgimpmodule/.libs -lgimpmodule-2.0
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff -ruN gimp-2.4.7/plug-ins/sgi/Makefile.in gimp-2.4.7-mod/plug-ins/sgi/Makefile.in
+--- gimp-2.4.7/plug-ins/sgi/Makefile.in	2008-08-21 05:36:50.000000000 -0400
++++ gimp-2.4.7-mod/plug-ins/sgi/Makefile.in	2025-03-19 16:43:48.548478170 -0400
+@@ -100,7 +100,7 @@
+ CCASDEPMODE = @CCASDEPMODE@
+ CCASFLAGS = @CCASFLAGS@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = @CFLAGS@ -L../../libgimpmodule/.libs -lgimpmodule-2.0
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff -ruN gimp-2.4.7/plug-ins/twain/Makefile.in gimp-2.4.7-mod/plug-ins/twain/Makefile.in
+--- gimp-2.4.7/plug-ins/twain/Makefile.in	2008-08-21 05:36:50.000000000 -0400
++++ gimp-2.4.7-mod/plug-ins/twain/Makefile.in	2025-03-19 16:43:48.548478170 -0400
+@@ -117,7 +117,7 @@
+ CCASDEPMODE = @CCASDEPMODE@
+ CCASFLAGS = @CCASFLAGS@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = @CFLAGS@ -L../../libgimpmodule/.libs -lgimpmodule-2.0
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff -ruN gimp-2.4.7/plug-ins/uri/Makefile.in gimp-2.4.7-mod/plug-ins/uri/Makefile.in
+--- gimp-2.4.7/plug-ins/uri/Makefile.in	2008-08-21 05:36:50.000000000 -0400
++++ gimp-2.4.7-mod/plug-ins/uri/Makefile.in	2025-03-19 16:43:48.551478170 -0400
+@@ -108,7 +108,7 @@
+ CCASDEPMODE = @CCASDEPMODE@
+ CCASFLAGS = @CCASFLAGS@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = @CFLAGS@ -L../../libgimpmodule/.libs -lgimpmodule-2.0
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff -ruN gimp-2.4.7/plug-ins/winicon/Makefile.in gimp-2.4.7-mod/plug-ins/winicon/Makefile.in
+--- gimp-2.4.7/plug-ins/winicon/Makefile.in	2008-08-21 05:36:50.000000000 -0400
++++ gimp-2.4.7-mod/plug-ins/winicon/Makefile.in	2025-03-19 16:43:48.545478170 -0400
+@@ -105,7 +105,7 @@
+ CCASDEPMODE = @CCASDEPMODE@
+ CCASFLAGS = @CCASFLAGS@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = @CFLAGS@ -L../../libgimpmodule/.libs -lgimpmodule-2.0
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff -ruN gimp-2.4.7/plug-ins/winicon/icoload.c gimp-2.4.7-mod/plug-ins/winicon/icoload.c
+--- gimp-2.4.7/plug-ins/winicon/icoload.c	2008-07-10 06:31:42.000000000 -0400
++++ gimp-2.4.7-mod/plug-ins/winicon/icoload.c	2025-03-19 17:05:59.618366846 -0400
+@@ -287,14 +287,14 @@
+   switch (color_type)
+     {
+     case PNG_COLOR_TYPE_GRAY:
+-      png_set_gray_1_2_4_to_8 (png_ptr);
++      png_set_expand_gray_1_2_4_to_8 (png_ptr);
+       if ( bit_depth == 16 )
+         png_set_strip_16 (png_ptr);
+       png_set_gray_to_rgb (png_ptr);
+       png_set_add_alpha (png_ptr, 0xff, PNG_FILLER_AFTER);
+       break;
+     case PNG_COLOR_TYPE_GRAY_ALPHA:
+-      png_set_gray_1_2_4_to_8 (png_ptr);
++      png_set_expand_gray_1_2_4_to_8 (png_ptr);
+       if ( bit_depth == 16 )
+         png_set_strip_16 (png_ptr);
+       png_set_gray_to_rgb (png_ptr);
+diff -ruN gimp-2.4.7/plug-ins/winsnap/Makefile.in gimp-2.4.7-mod/plug-ins/winsnap/Makefile.in
+--- gimp-2.4.7/plug-ins/winsnap/Makefile.in	2008-08-21 05:36:50.000000000 -0400
++++ gimp-2.4.7-mod/plug-ins/winsnap/Makefile.in	2025-03-19 16:43:48.550478170 -0400
+@@ -103,7 +103,7 @@
+ CCASDEPMODE = @CCASDEPMODE@
+ CCASFLAGS = @CCASFLAGS@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = @CFLAGS@ -L../../libgimpmodule/.libs -lgimpmodule-2.0
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff -ruN gimp-2.4.7/plug-ins/xjt/Makefile.in gimp-2.4.7-mod/plug-ins/xjt/Makefile.in
+--- gimp-2.4.7/plug-ins/xjt/Makefile.in	2008-08-21 05:36:50.000000000 -0400
++++ gimp-2.4.7-mod/plug-ins/xjt/Makefile.in	2025-03-19 16:43:48.550478170 -0400
+@@ -100,7 +100,7 @@
+ CCASDEPMODE = @CCASDEPMODE@
+ CCASFLAGS = @CCASFLAGS@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = @CFLAGS@ -L../../libgimpmodule/.libs -lgimpmodule-2.0
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@

@@ -1,0 +1,17 @@
+config BR2_PACKAGE_MATEEYE
+	bool "mateeye"
+	depends on BR2_PACKAGE_LIBGTK2
+	select BR2_PACKAGE_GCONF
+	select BR2_PACKAGE_GSETTINGS_DESKTOP_SCHEMAS
+	select BR2_PACKAGE_SHARED_MIME_INFO
+	select BR2_PACKAGE_MATE_DESKTOP
+	help
+		Eye of MATE is an image viewer for the MATE desktop
+		of which it is a fork of eye of GNOME, from the GNOME 2 days
+		
+		I wouldve gone with the actual gnome 2 version, but based
+		on my experiences with file-roller, it is easier to ship
+		slightly older but still newer versions from MATE
+		
+		from the MATE Desktop
+		https://mate-desktop.org/

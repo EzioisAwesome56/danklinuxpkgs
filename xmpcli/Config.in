@@ -1,0 +1,8 @@
+config BR2_PACKAGE_XMPCLI
+	bool "xmpcli"
+	depends on BR2_PACKAGE_LIBXMP
+	help
+		XMPCLI is the cli frontend to libxmp from the devs
+		of said library
+		
+		https://github.com/libxmp/libxmp

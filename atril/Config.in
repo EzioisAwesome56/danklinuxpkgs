@@ -1,0 +1,14 @@
+config BR2_PACKAGE_ATRIL
+	bool "atril"
+	depends on BR2_PACKAGE_LIBGTK2
+	depends on BR2_PACKAGE_CAIRO
+	select BR2_PACKAGE_GCONF
+	select BR2_PACKAGE_GSETTINGS_DESKTOP_SCHEMAS
+	select BR2_PACKAGE_POPPLER
+	select BR2_PACKAGE_MATE_DESKTOP
+	help
+		Atril is a document viewer, good for viewing documents
+		such as PDF files, among other things.
+		
+		from the MATE Desktop
+		https://mate-desktop.org/

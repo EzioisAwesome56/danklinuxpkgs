@@ -1,0 +1,7 @@
+config BR2_PACKAGE_LIBXMP
+	bool "libxmp"
+	help
+		Libxmp is a library that allows playing back module files as
+		pcm or something like that
+		
+		https://github.com/libxmp/libxmp

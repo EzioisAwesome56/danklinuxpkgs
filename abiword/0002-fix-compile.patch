@@ -1,0 +1,358 @@
+diff -ruN abiword-2.6.4/ac-helpers/abi-goffice.m4 abiword-2.6.4-mod/ac-helpers/abi-goffice.m4
+--- abiword-2.6.4/ac-helpers/abi-goffice.m4	2008-07-13 09:09:16.000000000 -0400
++++ abiword-2.6.4-mod/ac-helpers/abi-goffice.m4	2025-03-21 17:41:58.417431249 -0400
+@@ -21,8 +21,8 @@
+ 
+ AC_DEFUN([ABI_GOFFICE], [
+ 
+-GOFFICE_VERSION_REQUIRED='0.4.0'
+-goffice_modules="libgoffice-0.4 >= $GOFFICE_VERSION_REQUIRED"
++GOFFICE_VERSION_REQUIRED='0.8.17'
++goffice_modules="libgoffice-0.8 == $GOFFICE_VERSION_REQUIRED"
+ 
+ PKG_CHECK_MODULES(GOFFICE, [ $goffice_modules ], 
+ [
+diff -ruN abiword-2.6.4/src/af/ev/unix/ev_UnixToolbar.cpp abiword-2.6.4-mod/src/af/ev/unix/ev_UnixToolbar.cpp
+--- abiword-2.6.4/src/af/ev/unix/ev_UnixToolbar.cpp	2008-07-13 09:09:48.000000000 -0400
++++ abiword-2.6.4-mod/src/af/ev/unix/ev_UnixToolbar.cpp	2025-03-21 17:54:54.264366361 -0400
+@@ -520,9 +520,9 @@
+ 	g_return_if_fail (wd);
+ 
+ 	str = UT_UTF8String_sprintf ("%02x%02x%02x", 
+-								 UINT_RGBA_R (color),
+-								 UINT_RGBA_G (color),
+-								 UINT_RGBA_B (color));
++								GO_COLOR_UINT_R (color),
++								 GO_COLOR_UINT_G (color),
++								 GO_COLOR_UINT_B (color));
+ 	wd->m_pUnixToolbar->toolbarEvent(wd, str.ucs4_str().ucs4_str(), str.size());
+ }
+ 
+@@ -542,9 +542,9 @@
+ 		str = "transparent";
+ 	} else {
+ 		str = UT_UTF8String_sprintf ("%02x%02x%02x", 
+-									 UINT_RGBA_R (color),
+-									 UINT_RGBA_G (color),
+-									 UINT_RGBA_B (color));
++									 GO_COLOR_UINT_R (color),
++									 GO_COLOR_UINT_G (color),
++									 GO_COLOR_UINT_B (color));
+ 	}
+ 
+ 	wd->m_pUnixToolbar->toolbarEvent(wd, str.ucs4_str().ucs4_str(), str.size());
+diff -ruN abiword-2.6.4/src/af/util/xp/ut_png.cpp abiword-2.6.4-mod/src/af/util/xp/ut_png.cpp
+--- abiword-2.6.4/src/af/util/xp/ut_png.cpp	2008-07-13 09:09:55.000000000 -0400
++++ abiword-2.6.4-mod/src/af/util/xp/ut_png.cpp	2025-03-21 18:01:25.236333663 -0400
+@@ -28,6 +28,14 @@
+ 
+ #include "ut_assert.h"
+ #include "ut_bytebuf.h"
++/*
++ * a lot of this code was just yoinked from ABIWord 3.0.6
++ * because i am too fucking stupid to fix libpng shit
++ * on my own. But what I can do is
++ * backport new code to an older version
++ * 
++ * I did it for gimp, and ill do it again!
++ */
+ 
+ struct _bb
+ {
+@@ -43,7 +51,7 @@
+ 	memcpy(data, pBytes + p->iCurPos, length);
+ 	p->iCurPos += length;
+ }
+-
++// this function was replaced entirely with the new version from 3.0.6
+ bool UT_PNG_getDimensions(const UT_ByteBuf* pBB, UT_sint32& iImageWidth, UT_sint32& iImageHeight)
+ {
+ 	png_structp png_ptr;
+@@ -71,7 +79,7 @@
+ 	 * the normal method of doing things with libpng).  REQUIRED unless you
+ 	 * set up your own error handlers in the png_create_read_struct() earlier.
+ 	 */
+-	if (setjmp(png_ptr->jmpbuf))
++	if (setjmp(png_jmpbuf(png_ptr)))
+ 	{
+ 		/* Free all of the memory associated with the png_ptr and info_ptr */
+ 		png_destroy_read_struct(&png_ptr, &info_ptr, static_cast<png_infopp>(NULL));
+diff -ruN abiword-2.6.4/src/text/ptbl/xp/pd_Document.cpp abiword-2.6.4-mod/src/text/ptbl/xp/pd_Document.cpp
+--- abiword-2.6.4/src/text/ptbl/xp/pd_Document.cpp	2008-07-13 09:09:25.000000000 -0400
++++ abiword-2.6.4-mod/src/text/ptbl/xp/pd_Document.cpp	2025-03-21 18:16:28.704258101 -0400
+@@ -1732,7 +1732,9 @@
+ 				 indexAP = pfSec->getIndexAP();
+ 				 const PP_AttrProp * pAP = NULL;
+ 				 m_pPieceTable->getAttrProp(indexAP,&pAP);
+-				 UT_return_val_if_fail (pAP,false);
++				 // litterally the only change in this from 3.0.6 is
++				 // the false is null.
++				 UT_return_val_if_fail (pAP,NULL);
+ 				 const gchar * pszIDName = NULL;
+ 				 const gchar * pszHeaderName = NULL;
+ 				 (pAP)->getAttribute(PT_TYPE_ATTRIBUTE_NAME, pszHeaderName);
+diff -ruN abiword-2.6.4/src/text/ptbl/xp/pp_AttrProp.cpp abiword-2.6.4-mod/src/text/ptbl/xp/pp_AttrProp.cpp
+--- abiword-2.6.4/src/text/ptbl/xp/pp_AttrProp.cpp	2008-07-13 09:09:24.000000000 -0400
++++ abiword-2.6.4-mod/src/text/ptbl/xp/pp_AttrProp.cpp	2025-03-21 18:21:11.087234484 -0400
+@@ -929,10 +929,20 @@
+ 		// TODO them from this?  or should we expand it and override
+ 		// TODO individual properties?
+ 		// TODO for now, we just barf on it.
+-		UT_return_val_if_fail (strcmp(n,PT_PROPS_ATTRIBUTE_NAME)!=0, false); // cannot handle PROPS here
+-		if (!papNew->getAttribute(n,vNew))
+-			if (!papNew->setAttribute(n,v))
+-				goto Failed;
++		// 3-21-2025: this shit doesnt work
++		// as a hackfix, im copying the code present here from
++		// abiword 3.0.6 to see if that'll work instead
++		 if (strcmp(n,PT_PROPS_ATTRIBUTE_NAME) == 0)
++	    {
++		UT_ASSERT_HARMLESS(UT_SHOULD_NOT_HAPPEN);
++		continue;
++	    }
++	    if (!papNew->getAttribute(n,vNew))
++	    {
++		bool bres = papNew->setAttribute(n,v);
++		if (!bres)
++		    goto Failed;
++	    }
+ 	}
+ 
+ 	// we want to be able to remove all properties by setting the
+@@ -1033,6 +1043,7 @@
+ 	 to the value given.
+ 	 \return NULL on failure, the newly-created PP_AttrProp clone otherwise.
+ */
++// function replaced with version from 3.0.6
+ PP_AttrProp * PP_AttrProp::cloneWithElimination(const gchar ** attributes,
+ 												const gchar ** properties) const
+ {
+@@ -1057,7 +1068,7 @@
+ 			const gchar ** p = attributes;
+ 			while (*p)
+ 			{
+-				UT_return_val_if_fail (strcmp(p[0],PT_PROPS_ATTRIBUTE_NAME)!=0, false); // cannot handle PROPS here
++				UT_return_val_if_fail (strcmp(p[0],PT_PROPS_ATTRIBUTE_NAME)!=0, NULL); // cannot handle PROPS here
+ 				if (strcmp(n,p[0])==0)		// found it, so we don't put it in the result.
+ 					goto DoNotIncludeAttribute;
+ 				p += 2;								// skip over value
+diff -ruN abiword-2.6.4/src/wp/ap/unix/GNUmakefile.am abiword-2.6.4-mod/src/wp/ap/unix/GNUmakefile.am
+--- abiword-2.6.4/src/wp/ap/unix/GNUmakefile.am	2008-07-13 09:10:01.000000000 -0400
++++ abiword-2.6.4-mod/src/wp/ap/unix/GNUmakefile.am	2025-03-21 19:56:11.174757759 -0400
+@@ -69,9 +69,7 @@
+ 	ap_UnixDialog_Stylist_modal.glade	\
+ 	ap_UnixDialog_Tab.glade	\
+ 	ap_UnixDialog_WordCount.glade \
+-	ap_UnixDialog_Latex.glade \
+-	ap_UnixDialog_Options.glade \
+-	ap_UnixDialog_HdrFtr.glade
++	ap_UnixDialog_Latex.glade
+ 
+ if ENABLE_SPELL
+ spellsrc=	ap_UnixDialog_Spell.cpp
+diff -ruN abiword-2.6.4/src/wp/impexp/unix/ie_impGraphic_GdkPixbuf.cpp abiword-2.6.4-mod/src/wp/impexp/unix/ie_impGraphic_GdkPixbuf.cpp
+--- abiword-2.6.4/src/wp/impexp/unix/ie_impGraphic_GdkPixbuf.cpp	2008-07-13 09:10:37.000000000 -0400
++++ abiword-2.6.4-mod/src/wp/impexp/unix/ie_impGraphic_GdkPixbuf.cpp	2025-03-21 19:33:37.442870978 -0400
+@@ -123,59 +123,49 @@
+ /*!
+  * Convert an image data buffer into PNG image buffer.
+  */
++ // replaced entirely with 3.0.6 code, with some of the extra
++ // crap yanked out
+ UT_Error IE_ImpGraphic_GdkPixbuf::importGraphic(UT_ByteBuf * pBB, FG_Graphic ** ppfg)
+ {
+ 	GdkPixbuf * pixbuf = pixbufForByteBuf ( pBB );
++	UT_Error err = UT_OK;
+ 
+ 	if (!pixbuf)
+ 	{
+ 		UT_DEBUGMSG (("GdkPixbuf: couldn't get image from loader!\n"));
+ 		return UT_ERROR;
+ 	}
+-
+-	// Initialize stuff to create our PNG.
+-	UT_Error err = Initialize_PNG();
+-	if (err)
+-	{
+-		g_object_unref(G_OBJECT(pixbuf));
+-		return err;
+-	}
+-
+-	if (setjmp(m_pPNG->jmpbuf))
+-	{
+-		DELETEP(m_pPngBB);
+-		g_object_unref(G_OBJECT(pixbuf));
+-		png_destroy_write_struct(&m_pPNG, &m_pPNGInfo);
+-		return UT_ERROR;
+-	}
+-
+-	//
+-	// Build the png member variables.
+-	//
+-	_createPNGFromPixbuf(pixbuf);
+-
+-	//
+-	// Get rid of these now that they are no longer needed
+-	//
+-	g_object_unref(G_OBJECT(pixbuf));
+-	png_destroy_write_struct(&m_pPNG, &m_pPNGInfo);
+-
+ 	FG_GraphicRaster * pFGR = new FG_GraphicRaster();
+ 	if(pFGR == NULL)
+ 	{
++		g_object_unref(G_OBJECT(pixbuf));
+ 		DELETEP(m_pPngBB);
+ 		return UT_IE_NOMEMORY;
+ 	}
+ 
+-	if(!pFGR->setRaster_PNG(m_pPngBB)) 
+-	{
+-		DELETEP(pFGR);
+-		DELETEP(m_pPngBB);
+-		return UT_IE_FAKETYPE;
+-	}
+ 
++		// Initialize stuff to create our PNG.
++		err = Initialize_PNG();
++		if (err)
++		{
++			g_object_unref(G_OBJECT(pixbuf));
++			return err;
++		}
++
++		err = _png_write(pixbuf);
++
++		if(err == UT_OK) {
++		
++			if(!pFGR->setRaster_PNG(m_pPngBB)) 
++			{
++				DELETEP(pFGR);
++				DELETEP(m_pPngBB);
++				return UT_IE_FAKETYPE;
++			}
++		
++		}
+ 	*ppfg = static_cast<FG_Graphic *>(pFGR);
+-	return UT_OK;
++	return err;
+ }
+ 
+ /*!
+@@ -198,8 +188,28 @@
+ 		g_object_unref(G_OBJECT(pixbuf));
+ 		return err;
+ 	}
++	
++	// loosely based on code from 3.0.6's
++	// import graphic call
++	err = _png_write(pixbuf);
++
++		if(err != UT_OK) {
++			// oh god oh fuck
++			return UT_ERROR;
++		
++		}
++
+ 
+-	if (setjmp(m_pPNG->jmpbuf))
++	*ppBB =  m_pPngBB;
++	return UT_OK;
++}
++
++// i only just noticed that this is a defined function in the file
++// so i can think less and just keep reusing that code from the new
++// version of ABIword
++UT_Error IE_ImpGraphic_GdkPixbuf::_png_write(GdkPixbuf * pixbuf)
++{
++	if (setjmp(png_jmpbuf(m_pPNG)))
+ 	{
+ 		DELETEP(m_pPngBB);
+ 		png_destroy_write_struct(&m_pPNG, &m_pPNGInfo);
+@@ -215,8 +225,6 @@
+ 	// cleanup
+ 	g_object_unref(G_OBJECT(pixbuf));
+ 	png_destroy_write_struct(&m_pPNG, &m_pPNGInfo);
+-
+-	*ppBB =  m_pPngBB;
+ 	return UT_OK;
+ }
+ 
+@@ -419,7 +427,8 @@
+ 
+ 	return pixbuf;
+ }
+-	
++
++// function replaced with version from 3.0.6
+ UT_Error IE_ImpGraphic_GdkPixbuf::Initialize_PNG(void)
+ {
+ 	/* Set up png structures for writing */
+@@ -428,29 +437,29 @@
+ 									  NULL, 
+ 									  NULL );
+ 	if( m_pPNG == NULL )
+-		{
+-			return UT_ERROR;
+-		}
++	{
++		return UT_ERROR;
++	}
+ 	
+ 	m_pPNGInfo = png_create_info_struct(m_pPNG);
+ 	if ( m_pPNGInfo == NULL )
+-		{
+-			png_destroy_write_struct(&m_pPNG, static_cast<png_infopp>(NULL));
+-			return UT_ERROR;
++	{
++		png_destroy_write_struct(&m_pPNG, static_cast<png_infopp>(NULL));
++		return UT_ERROR;
+ 	}
+ 	
+ 	/* Set error handling if you are using the setjmp/longjmp method (this is
+ 	 * the normal method of doing things with libpng).  REQUIRED unless you
+ 	 * set up your own error handlers in the png_create_read_struct() earlier.
+ 	 */
+-	if (setjmp(m_pPNG->jmpbuf))
+-		{
+-			/* Free all of the memory associated with the png_ptr and info_ptr */
+-			png_destroy_write_struct(&m_pPNG, &m_pPNGInfo);
++	if (setjmp(png_jmpbuf(m_pPNG)))
++	{
++		/* Free all of the memory associated with the png_ptr and info_ptr */
++		png_destroy_write_struct(&m_pPNG, &m_pPNGInfo);
+ 			
+-			/* If we get here, we had a problem reading the file */
+-			return UT_ERROR;
+-		}
++		/* If we get here, we had a problem reading the file */
++		return UT_ERROR;
++	}
+ 	m_pPngBB = new UT_ByteBuf;  /* Byte Buffer for Converted Data */
+ 	
+ 	/* Setting up the Data Writing Function */
+diff -ruN abiword-2.6.4/src/wp/impexp/unix/ie_impGraphic_GdkPixbuf.h abiword-2.6.4-mod/src/wp/impexp/unix/ie_impGraphic_GdkPixbuf.h
+--- abiword-2.6.4/src/wp/impexp/unix/ie_impGraphic_GdkPixbuf.h	2008-07-13 09:10:37.000000000 -0400
++++ abiword-2.6.4-mod/src/wp/impexp/unix/ie_impGraphic_GdkPixbuf.h	2025-03-21 19:40:14.178837797 -0400
+@@ -59,6 +59,8 @@
+ 	void _createPNGFromPixbuf(GdkPixbuf * pixbuf);
+ 	GdkPixbuf * _loadXPM(UT_ByteBuf * pBB);
+ 	UT_Error Initialize_PNG(void);
++	// since i copied this function in from 3.0.6, i think i need this
++	UT_Error _png_write(GdkPixbuf * pixbuf);
+ 
+ 	// PNG structures used
+ 	png_structp m_pPNG;				// libpng structure for the PNG Object
+diff -ruN abiword-2.6.4/src/wp/impexp/xp/ie_exp.cpp abiword-2.6.4-mod/src/wp/impexp/xp/ie_exp.cpp
+--- abiword-2.6.4/src/wp/impexp/xp/ie_exp.cpp	2008-07-13 09:10:39.000000000 -0400
++++ abiword-2.6.4-mod/src/wp/impexp/xp/ie_exp.cpp	2025-03-21 18:26:47.183206375 -0400
+@@ -230,8 +230,8 @@
+ 
+ GsfOutput* IE_Exp::openFile(const char * szFilename)
+ {
+-	UT_return_val_if_fail(!m_fp, false);
+-	UT_return_val_if_fail(szFilename, false);
++	UT_return_val_if_fail(!m_fp, NULL);
++	UT_return_val_if_fail(szFilename, NULL);
+ 
+ 	g_free(m_szFileName);
+ 	m_szFileName = g_new(char, strlen(szFilename) + 1);

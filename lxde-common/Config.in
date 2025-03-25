@@ -1,0 +1,7 @@
+config BR2_PACKAGE_LXDE_COMMON
+	bool "lxde-common"
+	help
+		common bits for the LXDE desktop
+		based on arch's packaging of it
+		
+		https://archlinux.org/packages/extra/any/lxde-common/

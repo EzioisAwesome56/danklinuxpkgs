@@ -1,0 +1,11 @@
+config BR2_PACKAGE_DEVICEGCC
+	bool "devicegcc"
+	depends on BR2_PACKAGE_MPFR
+	depends on BR2_PACKAGE_MPC
+	depends on BR2_PACKAGE_GMP
+	help
+		GCC is a compiler that compiles your shitcode to compiled
+		shitcode. it  really does not like your shitcode but
+		it tolerates it anyway
+		
+		https://ftp.gnu.org/gnu/gcc
