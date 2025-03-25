@@ -10,6 +10,7 @@ DOSEMU_SITE = https://dev.gentoo.org/~sam/distfiles
 DOSEMU_AUTORECONF = YES
 DOSEMU_AUTORECONF_OPTS = -fvi
 DOSEMU_DEPENDENCIES = alsa-lib fluidsynth xlib_libX11 gpm
+# yes i know this is awful but i was feeling very lazy when i wrote this
 DOSEMU_CONF_OPTS = IA16_LDFLAGS_EXTRA=-no-pie --enable-debug AR="/mnt/danklinux/buildroot-2024.02.11/output/host/bin/i486-dank-linux-gnu-ar" --without-sndfile
 #DOSEMU_CONF_ENV = 
 #DOSEMU_INSTALL_STAGING = YES
